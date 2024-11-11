@@ -7,6 +7,8 @@ services:
     networks:
       backend:
         ipv4_address: 172.20.1.2
+    ports:
+      - "3306:3306"
     deploy:
       replicas: 1
       restart_policy:
