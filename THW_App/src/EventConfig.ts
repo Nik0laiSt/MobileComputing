@@ -1,8 +1,7 @@
 
 import { BryntumCalendarProps } from '@bryntum/calendar-react';
-import { Calendar } from '@bryntum/calendar';
 
-const calendarProps: BryntumCalendarProps = {
+const eventProps: BryntumCalendarProps = {
     date : new Date(2022, 2, 15),
 
     crudManager : {
@@ -14,9 +13,12 @@ const calendarProps: BryntumCalendarProps = {
         autoLoad : true
     },
     modes : {
-        agenda : null,
+        year : null,
+        month: null, 
+        day: null,
+        week:null
     }
     
 };
 
-export { calendarProps };
+export { eventProps };

@@ -1,35 +1,61 @@
 import React, { useState } from 'react';
-import api from '../services/api';
-const LoginForm: React.FC = () => {
+import axios from 'axios';
+
+interface LoginFormProps {
+    onLoginSuccess: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
-    const handleLogin = async () => {
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
         try {
-            const response = await api.post('/auth/login', { email, password });
-            console.log('Logged in:', response.data);
+            const response = await axios.post('/api/login', { email, password });
+            if (response.status === 200) {
+                onLoginSuccess();
+            }
         } catch (error) {
-            console.error('Login failed:', error);
+            setError('Invalid credentials, please try again.');
         }
     };
 
     return (
-        <div>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <button onClick={handleLogin}>Login</button>
-        </div>
+        <form onSubmit={handleSubmit} style={styles.form}>
+            {error && <p style={styles.error}>{error}</p>}
+            <div style={styles.inputGroup}>
+                <label>Email</label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div style={styles.inputGroup}>
+                <label>Password</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <button type="submit" style={styles.button}>Login</button>
+        </form>
     );
 };
 
 export default LoginForm;
+
+const styles = {
+    form: {
+        maxWidth: '300px',
+        margin: '0 auto',
+    },
+    inputGroup: {
+        marginBottom: '15px',
+    },
+    button: {
+        padding: '10px',
+        backgroundColor: '#034875',
+        color: '#fff',
+        border: 'none',
+        cursor: 'pointer',
+    },
+    error: {
+        color: 'red',
+    },
+};
