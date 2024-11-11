@@ -1,0 +1,22 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      backend:
+        ipv4_address: 172.20.1.2
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  mariadb_data:
+    external: true
+
+networks:
+  backend:
+    external: true
+    name: backend
