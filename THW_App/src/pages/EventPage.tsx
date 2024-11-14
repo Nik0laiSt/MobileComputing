@@ -4,9 +4,6 @@ import Footer from '../components/NavigationBar';
 import { useNavigate } from 'react-router-dom';
 import { FunctionComponent, useRef } from 'react';
 import { BryntumCalendar } from '@bryntum/calendar-react';
-import { Calendar } from '@bryntum/calendar';
-
-import { calendarProps } from '../CalendarConfig';
 import '../App.scss';
 import { eventProps } from '../EventConfig';
 
@@ -36,6 +33,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column' as const,
         minHeight: '100vh',
+        width: '100%',           // Hier sicherstellen, dass die Breite 100% beträgt
     },
     mainContent: {
         flex: 1,
@@ -43,6 +41,10 @@ const styles = {
         flexDirection: 'column' as const,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '20px',
+        padding: '0px',
+        width: '100%',           // Auch hier die Breite auf 100% setzen
+        height: '100%'
+       // boxSizing: 'border-box',  // Für besseren Padding/Border-Handling
     },
 };
+

@@ -5,6 +5,7 @@ import CalendarPage from './pages/CalendarPage';
 import LoginPage from './pages/LoginPage';
 import EventPage from './pages/EventPage';
 import { useMediaQuery } from 'react-responsive'
+import AddEventPage from './pages/AddEventPage';
 
 
 const App: FunctionComponent = () => {
@@ -26,6 +27,8 @@ const App: FunctionComponent = () => {
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/calendar" element={<CalendarPage/>}/>
           <Route path="/events" element={<EventPage/>}/>
+          <Route path="/add-event" element={<AddEventPage/>}/>
+          {/*<Route path="/add-event" element={<AddEventPage/>}/>*/}
         </Routes>
       </Router>
     );

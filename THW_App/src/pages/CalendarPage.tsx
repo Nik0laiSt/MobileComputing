@@ -35,6 +35,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column' as const,
         minHeight: '100vh',
+        width: '100%',           // Hier sicherstellen, dass die Breite 100% beträgt
     },
     mainContent: {
         flex: 1,
@@ -42,6 +43,9 @@ const styles = {
         flexDirection: 'column' as const,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '20px',
+        padding: '0px',
+        width: '100%',           // Auch hier die Breite auf 100% setzen
+        height: '100%'
+       // boxSizing: 'border-box',  // Für besseren Padding/Border-Handling
     },
 };

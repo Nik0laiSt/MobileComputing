@@ -3,49 +3,35 @@ import Header from '../components/AppBar_Search';
 import Footer from '../components/NavigationBar';
 import LoginForm from '../components/LoginForm';
 import { useNavigate } from 'react-router-dom';
-import { FunctionComponent, useRef } from 'react';
-import { BryntumCalendar } from '@bryntum/calendar-react';
-import { calendarProps } from '../CalendarConfig';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLoginSuccess = () => {
-        navigate('/dashboard'); // Redirect to dashboard or another page upon successful login
+        navigate('/calendar'); // Erfolgreiches Login leitet zur Kalender-Seite weiter
     };
 
     return (
-        <div style={styles.pageContainer}>
-            <main style={styles.mainContent}>
-                <img 
-                src="../../public/logo.svg"  // Adjust the filename to match your actual logo's filename in the public folder
-                alt="App Logo"
-                style={{
-                height: 40,  // Adjust the height as necessary
-                marginRight: 'auto',  // Aligns the search bar to the right
-                }}
-                />
-                <h2>Login to THW App</h2>
-                <LoginForm onLoginSuccess={handleLoginSuccess} />
-            </main>
-        </div>
+        <Container fluid className="d-flex flex-column min-vh-100 bg-white">
+            
+
+            <Row className="flex-grow-1 d-flex align-items-center justify-content-center">
+                <Col xs={10} sm={8} md={8} lg={8} xl={8} className="text-center p-4 bg-white rounded shadow">
+                    <img 
+                        src="logo.svg"  // Adjust path to your logo
+                        alt="App Logo"
+                        className="mb-4"
+                        style={{ height: 100 }}
+                    />
+                    <h2 className="mb-4">Login to THW App</h2>
+                    <LoginForm onLoginSuccess={handleLoginSuccess} />
+                </Col>
+            </Row>
+
+            <Footer /> {/* Optional: Footer at the bottom */}
+        </Container>
     );
 };
 
 export default LoginPage;
-
-const styles = {
-    pageContainer: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-        minHeight: '100vh',
-    },
-    mainContent: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column' as const,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '20px',
-    },
-};

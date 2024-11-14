@@ -29,7 +29,7 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
+    <BottomNavigation sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         label="Event"
         value="event"
