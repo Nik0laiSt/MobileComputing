@@ -45,36 +45,6 @@ export const authenticateUser = async (email: string, password: string): Promise
     return isMatch;
 };
 
-export const getUserGroups = async (userId: number): Promise<string[]> => {
-    const query = `
-        SELECT g.name 
-        FROM groups g
-        JOIN user_groups ug ON g.id = ug.group_id
-        WHERE ug.user_id = ?
-    `;
-    
-    const [rows] = await db.execute(query, [userId]);
-    return rows.map((row: any) => row.name); // Gibt nur die Gruppennamen zurück
-};
-
-export const addUserToGroup = async (userId: number, groupId: number): Promise<void> => {
-    const query = `
-        INSERT INTO user_groups (user_id, group_id) 
-        VALUES (?, ?)
-    `;
-    
-    await db.execute(query, [userId, groupId]);
-};
-
-export const updateUserRole = async (userId: number, newRole: 'Helfer' | 'Gruppenleiter' | 'Admin'): Promise<void> => {
-    const query = `
-        UPDATE users 
-        SET role = ? 
-        WHERE id = ?
-    `;
-    
-    await db.execute(query, [newRole, userId]);
-};
 
 
 
