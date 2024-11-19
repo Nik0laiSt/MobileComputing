@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {authenticateUser} from '../../backend/src/services/userService'
 
 interface LoginFormProps {
     onLoginSuccess: () => void;
@@ -13,13 +12,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        setError(null); // Clear previous errors
         try {
-            const response = await authenticateUser(email, password );
-            if (response == true) {
-                onLoginSuccess();
+            const response = await axios.post('http://localhost:5000/api/login', { email, password }); // Endpoint anpassen
+            if (response.data) {
+                onLoginSuccess(); // Erfolgreiche Login-Aktion
             }
-        } catch (error) {
-            setError('Invalid credentials, please try again.');
+            const token = response.data.token;
+            localStorage.setItem('jwtToken', token);
+        } catch (err: any) {
+            setError(err.response?.data?.message || 'Login failed. Please try again.');
         }
     };
 

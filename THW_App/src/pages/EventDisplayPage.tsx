@@ -49,7 +49,7 @@ const EventDisplayPage: React.FC = () => {
       <Container fluid className="my-5" style={styles.mainContent}>
         <Row className="justify-content-center">
           <Col md={10} lg={8}>
-            eventInfo ? <EventDisplay {...eventInfo} /> : <p>Loading event data...</p>
+           {eventInfo ? <EventDisplay {...eventInfo} /> : <p>Loading event data...</p> }
           </Col>
         </Row>
       </Container>

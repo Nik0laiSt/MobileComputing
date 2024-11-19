@@ -1,10 +1,17 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { authenticateUser, getUserByEmail, getUserById} from '../services/userService';
 import { createUser as createService} from '../services/userService';
 import { updateUser as updateService} from '../services/userService';
 import { deleteUser as deleteService} from '../services/userService';
 
+import jwt from 'jsonwebtoken';
 
+const generateJwtToken = (user: any) => {
+  const payload = { id: user.id, email: user.email };
+  const secret = 'your-secret-key';
+  const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+  return token;
+};
 export const getUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
     const user = await getUserById(userId);
@@ -47,17 +54,19 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.json(success);
 };
 
-export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    const user = await getUserByEmail(email);
-    if (!user) {
-        return res.status(400).json({ message: 'Benutzer nicht gefunden' });
-      }
-  
+export const login = async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
+
+  const user = await getUserByEmail(email);
+  if (!user) {
+    res.status(400).json({ message: 'Benutzer nicht gefunden' });
+  } else {
     const success = await authenticateUser(user, password);
     if (!success) {
-        return res.status(400).json({ message: 'Falsches Passwort' });
-      }
-
-    res.json(success);
+      res.status(404).json({ message: 'Falsches Passwort' });
+    } else {
+      const token = generateJwtToken(user); // Generate a JWT token for the user
+      res.json({ token, user: { id: user.id, email: user.email } });
+    }
+  }
 };

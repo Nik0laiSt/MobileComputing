@@ -1,13 +1,19 @@
-import { Router } from 'express';
+import {Router} from 'express';
+import express from 'express';
 import { login, getUser, updateUser, deleteUser, createUser } from '../controllers/userController';
 
-const router = Router();
+const routes = Router();
+const app = express();
+routes.get('/users/:id', getUser);
+routes.get('/users/:id/registrations', getUser);
+routes.post('/api/login', login);
+routes.post('/users/create', createUser);
+routes.post('/users/:id/update', updateUser);
+routes.post('/users/:id/delete', deleteUser);
 
-router.get('/users/:id', getUser);
-router.get('/users/:id/registrations', getUser);
-router.post('/users/login', login);
-router.post('/users/create', createUser);
-router.post('/users/:id/update', updateUser);
-router.post('/users/:id/delete', deleteUser);
-
-export default router;
+const PORT = 5000;
+app.use('/api', routes); // Hier übergeben wir den Router an den Express-Server
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
+export default app;
