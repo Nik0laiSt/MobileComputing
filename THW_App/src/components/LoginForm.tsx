@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {authenticateUser} from '../../backend/src/services/userService'
 
 interface LoginFormProps {
     onLoginSuccess: () => void;
@@ -13,8 +14,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/api/login', { email, password });
-            if (response.status === 200) {
+            const response = await authenticateUser(email, password );
+            if (response == true) {
                 onLoginSuccess();
             }
         } catch (error) {

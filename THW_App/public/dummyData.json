@@ -1,0 +1,18 @@
+{
+    "startDate": "2024-01-15T10:00:00Z",
+    "endDate": "2024-01-20T18:00:00Z",
+    "name": "Advanced Software Development Workshop",
+    "resourceId": "res-1234",
+    "description": "An intensive workshop focused on advanced software development techniques, best practices, and hands-on coding challenges.",
+    "maxUsers": 30,
+    "minUsers": 5,
+    "trainingsID": "train-5678",
+    "dateOptions": [
+        "2024-01-15T10:00:00Z",
+        "2024-01-16T10:00:00Z",
+        "2024-01-17T10:00:00Z",
+        "2024-01-18T10:00:00Z",
+        "2024-01-19T10:00:00Z",
+        "2024-01-20T10:00:00Z"
+    ]
+}
