@@ -1,0 +1,13 @@
+{
+    "name": "React Workshop",
+    "resourceId": "123",
+    "description": "A comprehensive React and TypeScript training.",
+    "maxUsers": 50,
+    "minUsers": 5,
+    "trainingsID": "001",
+    "dateOptions": [
+      ["2024-12-03T14:00:00Z", "2024-12-07T09:00:00Z"],
+      ["2025-01-15T10:00:00Z", "2025-01-20T16:00:00Z"],
+      ["2025-06-05T08:00:00Z", "2025-06-10T18:00:00Z"]
+    ]
+  }

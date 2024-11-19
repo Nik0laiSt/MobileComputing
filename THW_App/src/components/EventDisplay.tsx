@@ -8,22 +8,21 @@ import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
-interface EventProps {
-    startDate: string;
-    endDate: string;
+// **Export des Interfaces**
+export interface EventProps {
     name: string;
     resourceId?: string;
     description: string;
     maxUsers: number;
     minUsers: number;
     trainingsID?: string;
-    dateOptions: string[];  // Array of available event dates for selection
+    dateOptions: [string, string][]; // Array von [startDate, endDate]-Paaren
 }
 
+
 const EventDisplay: React.FC<EventProps> = ({
-    startDate,
-    endDate,
     name,
     resourceId,
     description,
@@ -32,16 +31,42 @@ const EventDisplay: React.FC<EventProps> = ({
     trainingsID,
     dateOptions,
 }) => {
-    const [selectedDate, setSelectedDate] = useState<string>(dateOptions[0] || '');
+    // Transform dateOptions into a readable format
+    const formattedDateOptions = dateOptions.map(([start, end]) => ({
+        start,
+        end,
+        display: `${new Date(start).toLocaleString()} - ${new Date(end).toLocaleString()}`,
+    }));
 
-    const handleRegister = () => {
-        // Here, you would typically send the selected date to the backend or handle the registration logic
-        alert(`Registered for ${name} on ${selectedDate}`);
+    // Initialize selected date range
+    const [selectedRange, setSelectedRange] = useState<string>(
+        formattedDateOptions.length > 0 ? formattedDateOptions[0].display : ''
+    );
+
+    const handleRegister = async () => {
+        if (!selectedRange) {
+            alert('Please select a date range!');
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                `http://localhost:5000/api/trainingSessions/:sessionId/register/:userId`,
+                {
+                    selectedRange,
+                }
+            );
+
+            alert(`Registered for ${name} on ${selectedRange}`);
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.message || 'Registration failed!';
+            alert(errorMessage);
+        }
     };
 
     return (
         <Container fluid className="d-flex flex-column min-vh-100 bg-light">
-            <Box sx={{ flexGrow: 1, width: '100%', maxWidth: 600, margin: 'auto', padding: 2 }}>
+            <Box sx={{ flexGrow: 1, width: '100%', maxWidth: 1000, margin: 'auto', padding: 2 }}>
                 <Card>
                     <CardContent>
                         <Typography variant="h5" component="div" gutterBottom>
@@ -49,61 +74,43 @@ const EventDisplay: React.FC<EventProps> = ({
                         </Typography>
                         <Divider sx={{ mb: 2 }} />
 
+                        {/* Event Details */}
                         <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Event Name:</Typography></Col>
-                            <Col><Typography variant="body1">{name}</Typography></Col>
+                            <Col>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Event Name:
+                                </Typography>
+                            </Col>
+                            <Col>
+                                <Typography variant="body1">{name}</Typography>
+                            </Col>
                         </Row>
 
                         <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Start Date:</Typography></Col>
-                            <Col><Typography variant="body1">{new Date(startDate).toLocaleString()}</Typography></Col>
+                            <Col>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Description:
+                                </Typography>
+                            </Col>
+                            <Col>
+                                <Typography variant="body1">{description}</Typography>
+                            </Col>
                         </Row>
-
-                        <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">End Date:</Typography></Col>
-                            <Col><Typography variant="body1">{new Date(endDate).toLocaleString()}</Typography></Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Resource ID:</Typography></Col>
-                            <Col><Typography variant="body1">{resourceId || 'N/A'}</Typography></Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Description:</Typography></Col>
-                            <Col><Typography variant="body1">{description}</Typography></Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Max Users:</Typography></Col>
-                            <Col><Typography variant="body1">{maxUsers}</Typography></Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Min Users:</Typography></Col>
-                            <Col><Typography variant="body1">{minUsers}</Typography></Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col><Typography variant="subtitle1" color="textSecondary">Training ID:</Typography></Col>
-                            <Col><Typography variant="body1">{trainingsID || 'N/A'}</Typography></Col>
-                        </Row>
-
-                        <Divider sx={{ mt: 2, mb: 2 }} />
 
                         {/* Date Selection for Registration */}
+                        <Divider sx={{ mt: 2, mb: 2 }} />
                         <Typography variant="h6" gutterBottom>
-                            Select a Date to Register
+                            Select a Date Range to Register
                         </Typography>
                         <Select
                             fullWidth
-                            value={selectedDate}
-                            onChange={(e) => setSelectedDate(e.target.value)}
+                            value={selectedRange}
+                            onChange={(e) => setSelectedRange(e.target.value)}
                             sx={{ mb: 2 }}
                         >
-                            {dateOptions.map((date, index) => (
-                                <MenuItem key={index} value={date}>
-                                    {new Date(date).toLocaleString()}
+                            {formattedDateOptions.map(({ start, end, display }) => (
+                                <MenuItem key={`${start}-${end}`} value={display}>
+                                    {display}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -113,7 +120,7 @@ const EventDisplay: React.FC<EventProps> = ({
                             color="primary"
                             fullWidth
                             onClick={handleRegister}
-                            disabled={!selectedDate}  // Disable if no date is selected
+                            disabled={!selectedRange} // Disable if no date is selected
                         >
                             Register
                         </Button>
@@ -122,6 +129,7 @@ const EventDisplay: React.FC<EventProps> = ({
             </Box>
         </Container>
     );
+    
 };
 
 export default EventDisplay;

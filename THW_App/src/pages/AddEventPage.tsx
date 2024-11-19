@@ -9,9 +9,9 @@ const AddEventPage: React.FC = () => {
     <div style={styles.pageContainer}>
       <Header />
       
-      <Container fluid className="my-5" style={styles.mainContent}>
+      <Container fluid className="m-0" style={styles.mainContent}>
         <Row className="justify-content-center">
-          <Col md={10} lg={8}>
+          <Col>
             <AddEvent />
           </Col>
         </Row>
@@ -30,12 +30,14 @@ const styles = {
     flexDirection: 'column' as const,
     minHeight: '100vh',
     width: '100%',
-  },
-  mainContent: {
+    backgroundColor: '#f9f9f9',
+},
+mainContent: {
     flex: 1,
     display: 'flex',
-    alignItems: 'center',
-    padding: '0px',
+    justifyContent: 'center',
+    alignItems: 'flex-start', // Align content to the top
+    padding: '20px',
     width: '100%',
-  },
+}
 };

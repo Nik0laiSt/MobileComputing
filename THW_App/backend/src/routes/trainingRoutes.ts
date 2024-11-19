@@ -3,10 +3,10 @@ import { getTrainingById, getTrainingByTitle, updateTraining, deleteTraining, cr
 
 const router = Router();
 
-router.get('/trainings/:id', getTrainingById);
-router.get('/trainings/:title', getTrainingByTitle);
-router.post('/trainings/create', createTraining);
-router.post('/trainings/:id/update', updateTraining);
-router.post('/trainings/:id/delete', deleteTraining);
+router.get('/api/trainings/:id', getTrainingById);
+router.get('/api/trainings/:title', getTrainingByTitle);
+router.post('/api/trainings/create', createTraining);
+router.post('/api/trainings/:id/update', updateTraining);
+router.post('/api/trainings/:id/delete', deleteTraining);
 
 export default router;
