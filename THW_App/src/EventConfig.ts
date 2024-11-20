@@ -3,7 +3,13 @@ import { BryntumCalendarProps } from '@bryntum/calendar-react';
 
 const eventProps: BryntumCalendarProps = {
     date : new Date(2022, 2, 15),
-
+    dragFeature: false, // Drag-and-Drop deaktivieren
+    eventEditFeature: false,
+    eventCopyPasteFeature: false,
+    enableDeleteKey: false,
+    eventMenuFeature: false,
+    scheduleMenuFeature: false, // Deaktiviert das Kontextmenü für leere Bereiche
+    eventTooltipFeature: false, // Deaktiviert die Eventübersicht beim Klick
     crudManager : {
         transport : {
             load : {
