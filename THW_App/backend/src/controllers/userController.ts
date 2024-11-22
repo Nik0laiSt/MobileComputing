@@ -3,16 +3,7 @@ import { authenticateUser, getUserByEmail, getUserById} from '../services/userSe
 import { createUser as createService} from '../services/userService';
 import { updateUser as updateService} from '../services/userService';
 import { deleteUser as deleteService} from '../services/userService';
-
 import jwt from 'jsonwebtoken';
-
-const generateJwtToken = (user: any) => {
-  const payload = { id: user.id, email: user.email };
-  const secret = 'your-secret-key';
-  const token = jwt.sign(payload, secret, { expiresIn: '1h' });
-  return token;
-};
-
 
 export const getUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
@@ -65,7 +56,12 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       res.status(404).json({ message: 'Falsches Passwort' });
     } else {
       const token = generateJwtToken(user); // Generate a JWT token for the user
-      res.json({ token, user: { id: user.id, email: user.email } });
+      res.status(200).json({ token });
     }
   }
+};
+
+const generateJwtToken = (user: any) => {
+  const payload = { id: user.id, email: user.email };
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 };

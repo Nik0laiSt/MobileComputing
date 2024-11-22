@@ -14,13 +14,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         event.preventDefault();
         setError(null); // Clear previous errors
         try {
-            const response = await axios.post(
-                'http://localhost:5000/api/users/login', 
-                { email, password }, 
-                { headers: {
-                  'Authorization': 'Bearer dein_geheimer_schluessel',
-                  'Content-Type': 'application/json'
-                }}); 
+            const response = await axios.post('http://localhost:5000/api/users/login', { email, password }); 
             if (response.data) {
                 onLoginSuccess(); // Erfolgreiche Login-Aktion
             }
