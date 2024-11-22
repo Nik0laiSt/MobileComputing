@@ -1,5 +1,4 @@
 import {Router} from 'express';
-import express from 'express';
 import { login, getUser, updateUser, deleteUser, createUser } from '../controllers/userController';
 import { getAllRegistrationsForUser } from '../controllers/sessionRegistrationController';
 import { getAllSessionsForUser } from '../controllers/trainingSessionController';

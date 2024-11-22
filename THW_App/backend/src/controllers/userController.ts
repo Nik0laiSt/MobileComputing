@@ -12,6 +12,8 @@ const generateJwtToken = (user: any) => {
   const token = jwt.sign(payload, secret, { expiresIn: '1h' });
   return token;
 };
+
+
 export const getUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
     const user = await getUserById(userId);
