@@ -4,6 +4,7 @@ import { createUser as createService} from '../services/userService';
 import { updateUser as updateService} from '../services/userService';
 import { deleteUser as deleteService} from '../services/userService';
 import jwt from 'jsonwebtoken';
+import { User } from '../models/User';
 
 export const getUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
@@ -61,7 +62,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
-const generateJwtToken = (user: any) => {
-  const payload = { id: user.id, email: user.email };
+const generateJwtToken = (user: User) => {
+  const payload = { id: user.id, email: user.email, role: user.role };
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 };

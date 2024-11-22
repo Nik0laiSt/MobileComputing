@@ -21,3 +21,14 @@ export const authenticateToken = (req, res, next) => {
         res.status(403).json({ message: 'Ungültiges Token' });
     }
 };
+
+
+export function checkRole(role) {
+    return (req, res, next) => {
+        // Wenn die Rolle des Benutzers nicht übereinstimmt, verweigere den Zugriff
+        if (req.user.role !== role) {
+            return res.status(403).json({ message: 'Zugang verweigert: Unzureichende Berechtigungen' });
+        }
+        next(); // Rolle stimmt überein, weiter zur nächsten Route oder Funktion
+    };
+}
