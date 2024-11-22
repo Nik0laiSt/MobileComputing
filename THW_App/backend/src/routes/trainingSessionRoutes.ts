@@ -4,13 +4,13 @@ import { deregisterUserForTrainingSession, getAllRegistrationsForTrainingSession
 
 const router = Router();
 
-router.get('/trainingSessions/:id', getTrainingSessionById);
-router.get('/trainingSessions/:id/registrations', getAllRegistrationsForTrainingSession);
-router.post('/trainingSessions/:sessionId/register/:userId', registerUserForTrainingSession);
-router.post('/trainingSessions/:sessionId/deregister/:userId', deregisterUserForTrainingSession);
-router.get('/trainingSessions/:sessionId/attended/:userId', markAsAttended);
-router.post('/trainingSessions/create', createTrainingSession);
-router.post('/trainingSessions/:id/update', updateTrainingSession);
-router.post('/trainingSessions/:id/delete', deleteTrainingSession);
+router.get('/:id', getTrainingSessionById);
+router.get('/:id/registrations', getAllRegistrationsForTrainingSession);
+router.post('/:sessionId/register/:userId', registerUserForTrainingSession);
+router.post('/:sessionId/deregister/:userId', deregisterUserForTrainingSession);
+router.get('/:sessionId/attended/:userId', markAsAttended);
+router.post('/create', createTrainingSession);
+router.post('/:id/update', updateTrainingSession);
+router.post('/:id/delete', deleteTrainingSession);
 
 export default router;

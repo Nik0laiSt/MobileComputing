@@ -3,6 +3,8 @@ import { getTrainingSessionById as getByIdService } from '../services/trainingSe
 import { createTrainingSession as createService} from '../services/trainingSessionService';
 import { updateTrainingSession as updateService} from '../services/trainingSessionService';
 import { deleteTrainingSession as deleteService} from '../services/trainingSessionService';
+import { getAllRegistrationsForUser as getAllRegistrationsForUserService } from '../services/sessionRegistrationService';
+import { TrainingSession } from '../models/TrainingSession';
 
 export const getTrainingSessionById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
@@ -39,4 +41,21 @@ export const deleteTrainingSession = async (req: Request, res: Response) => {
       }
     const success = deleteService(training.id);
     res.json(success);
+};
+
+export const getAllSessionsForUser = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id, 10);
+  const registrations = await getAllRegistrationsForUserService(id);
+  if (!registrations) {
+      return res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+    }
+  const sessions: (TrainingSession)[] = [];
+  for (const registration of registrations) {
+    const session = await getByIdService(registration.sessionId);
+    if (session !== null) {
+      sessions.push(session);
+    }
+
+  }
+  res.json(sessions);
 };
