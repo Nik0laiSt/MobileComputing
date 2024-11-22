@@ -10,7 +10,8 @@ export const getTrainingSessionById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const training = await getByIdService(id);
     if (!training) {
-        return res.status(400).json({ message: 'Schulungstermin nicht gefunden' });
+        res.status(400).json({ message: 'Schulungstermin nicht gefunden' });
+        return;
       }
     res.json(training);
 };
@@ -25,7 +26,8 @@ export const updateTrainingSession = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const session = await getByIdService(id);
     if (!session) {
-        return res.status(400).json({ message: 'Schulungstermin nicht gefunden' });
+        res.status(400).json({ message: 'Schulungstermin nicht gefunden' });
+        return;
       }
 
     const { trainingsId, startDate, endDate, location, maxParticipants } = req.body;
@@ -37,7 +39,8 @@ export const deleteTrainingSession = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const training = await getByIdService(id);
     if (!training) {
-        return res.status(400).json({ message: 'Schulungstermin nicht gefunden' });
+         res.status(400).json({ message: 'Schulungstermin nicht gefunden' });
+         return;
       }
     const success = deleteService(training.id);
     res.json(success);
@@ -47,7 +50,8 @@ export const getAllSessionsForUser = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id, 10);
   const registrations = await getAllRegistrationsForUserService(id);
   if (!registrations) {
-      return res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+      res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+      return;
     }
   const sessions: (TrainingSession)[] = [];
   for (const registration of registrations) {

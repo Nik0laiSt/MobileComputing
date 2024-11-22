@@ -18,16 +18,12 @@ export const getUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
     const user = await getUserById(userId);
     if (!user) {
-        return res.status(400).json({ message: 'Benutzer nicht gefunden' });
+        res.status(400).json({ message: 'Benutzer nicht gefunden' });
+        return;
       }
     res.json(user);
 };
 
-//getEventsRegistered(userID) -> Returns json   // Wichtig um Events zu bekommen, die im Kalender angezeigt werden sollen
-
-//getEventsAssigned(userID) -> Events that are assigned to the Users Group to show on the Event Overview Page
-
-//
 export const createUser = async (req: Request, res: Response) => {
     const { name, prename, email, password } = req.body;
     const success = createService(name, prename, email, password);
@@ -38,7 +34,8 @@ export const updateUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
     const user = await getUserById(userId);
     if (!user) {
-        return res.status(400).json({ message: 'Benutzer nicht gefunden' });
+        res.status(400).json({ message: 'Benutzer nicht gefunden' });
+        return;
       }
 
     const { name, prename, email, password } = req.body;
@@ -50,7 +47,8 @@ export const deleteUser = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id, 10);
     const user = await getUserById(userId);
     if (!user) {
-        return res.status(400).json({ message: 'Benutzer nicht gefunden' });
+        res.status(400).json({ message: 'Benutzer nicht gefunden' });
+        return;
       }
     const success = deleteService(user.id);
     res.json(success);

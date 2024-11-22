@@ -10,7 +10,8 @@ export const getRegistrationById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const training = await getByIdService(id);
     if (!training) {
-        return res.status(400).json({ message: 'Schulung nicht gefunden' });
+        res.status(400).json({ message: 'Schulung nicht gefunden' });
+        return;
       }
     res.json(training);
 };
@@ -19,7 +20,8 @@ export const getAllRegistrationsForTrainingSession = async (req: Request, res: R
   const id = parseInt(req.params.id, 10);
   const registrations = await getAllForSessionService(id);
   if (!registrations) {
-      return res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+      res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+      return;
     }
   res.json(registrations);
 };
@@ -28,7 +30,8 @@ export const getAllRegistrationsForUser = async (req: Request, res: Response) =>
   const id = parseInt(req.params.id, 10);
   const registrations = await getAllForUserService(id);
   if (!registrations) {
-      return res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+      res.status(400).json({ message: 'Keine Anmeldungen gefunden' });
+      return;
     }
   res.json(registrations);
 };

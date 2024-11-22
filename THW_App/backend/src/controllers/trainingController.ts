@@ -9,7 +9,8 @@ export const getTrainingById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const training = await getByIdService(id);
     if (!training) {
-        return res.status(400).json({ message: 'Schulung nicht gefunden' });
+        res.status(400).json({ message: 'Schulung nicht gefunden' });
+        return;
       }
     res.json(training);
 };
@@ -18,7 +19,8 @@ export const getTrainingByTitle = async (req: Request, res: Response) => {
     const title = req.params.title;
     const training = await getByTitleService(title);
     if (!training) {
-        return res.status(400).json({ message: 'Schulung nicht gefunden' });
+        res.status(400).json({ message: 'Schulung nicht gefunden' });
+        return;
       }
     res.json(training);
 };
@@ -33,7 +35,8 @@ export const updateTraining = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const training = await getByIdService(id);
     if (!training) {
-        return res.status(400).json({ message: 'Schulung nicht gefunden' });
+        res.status(400).json({ message: 'Schulung nicht gefunden' });
+        return;
       }
 
     const { title, description, groupId } = req.body;
@@ -45,7 +48,8 @@ export const deleteTraining = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
     const training = await getByIdService(id);
     if (!training) {
-        return res.status(400).json({ message: 'Schulung nicht gefunden' });
+        res.status(400).json({ message: 'Schulung nicht gefunden' });
+        return;
       }
     const success = deleteService(training.id);
     res.json(success);
