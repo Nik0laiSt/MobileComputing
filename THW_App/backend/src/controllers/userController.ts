@@ -56,7 +56,6 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-
   const user = await getUserByEmail(email);
   if (!user) {
     res.status(400).json({ message: 'Benutzer nicht gefunden' });

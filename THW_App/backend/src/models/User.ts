@@ -3,7 +3,7 @@ export interface User {
     name: string;
     prename: string;
     email: string;
-    password: string;
+    password_hash: string;
     role: string;
 }
 
