@@ -17,8 +17,8 @@ export const getTrainingSessionById = async (req: Request, res: Response) => {
 };
 
 export const createTrainingSession = async (req: Request, res: Response) => {
-    const { trainingsId, startDate, endDate, location, maxParticipants } = req.body;
-    const success = createService(trainingsId, startDate, endDate, location, maxParticipants);
+    const { trainingsId, startDate, endDate, maxParticipants, minParticipants, location } = req.body;
+    const success = createService(trainingsId, startDate, endDate, maxParticipants, minParticipants, location);
     res.json(success);
 };
 

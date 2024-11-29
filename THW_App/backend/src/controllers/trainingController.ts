@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
 import { getTrainingById as getByIdService } from '../services/trainingService';
+import { getTrainingByName as getByNameService } from '../services/trainingService';
 import { getTrainingByTitle as getByTitleService } from '../services/trainingService';
-import { createTraining as createService} from '../services/trainingService';
+import { createTraining as createTrainingService} from '../services/trainingService';
+import { createTrainingSession as createSessionService} from '../services/trainingSessionService';
 import { updateTraining as updateService} from '../services/trainingService';
 import { deleteTraining as deleteService} from '../services/trainingService';
+import { getGroupByName } from '../services/groupService';
 
 export const getTrainingById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
@@ -26,8 +29,18 @@ export const getTrainingByTitle = async (req: Request, res: Response) => {
 };
 
 export const createTraining = async (req: Request, res: Response) => {
-    const { title, description, groupId } = req.body;
-    const success = createService(title, description, groupId);
+    const { name, description, group, maxUsers, minUsers, dateOptions } = req.body;
+    const groupId = (await getGroupByName(group)).id;
+    console.log(groupId)
+    var success = createTrainingService(name, description, groupId);
+
+    if(success){
+      var training = await getByNameService(name);
+      dateOptions.forEach(([startDate, endDate]) => {
+        console.log(startDate, endDate)
+        success = createSessionService(training.id, startDate, endDate, maxUsers, minUsers, "location");
+      });   
+    } 
     res.json(success);
 };
 

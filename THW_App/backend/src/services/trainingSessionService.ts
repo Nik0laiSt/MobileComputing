@@ -17,13 +17,13 @@ export const getAllSessionsForTraining = async (id: number): Promise<TrainingSes
     return null;
 };
 
-export const createTrainingSession = async (trainingId: number, startDate: Date, endDate: Date, location:string, maxParticipants: number): Promise<boolean> => {
+export const createTrainingSession = async (trainingId: number, startDate: Date, endDate: Date, maxParticipants: number, minParticipants: number, location: string): Promise<boolean> => {
     const query = `
-        INSERT INTO training_sessions (training_id, start_date, end_date, location, max_participants) 
-        VALUES (?, ?, ?, ?, ?)
-    `;
+        INSERT INTO training_sessions (training_id, start_date, end_date, max_participants, min_participants, location) 
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;   
     
-    const [result] = await db.execute(query, [trainingId, startDate, endDate, location, maxParticipants]);
+    const [result] = await db.execute(query, [trainingId, startDate, endDate, maxParticipants, minParticipants, location]);
     return (result as any).affectedRows > 0; 
 };
 

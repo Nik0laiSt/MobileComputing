@@ -15,11 +15,10 @@ import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 
 const AddEvent: React.FC = () => {
     const [name, setName] = useState('');
-    const [resourceId, setResourceId] = useState('');
+    const [group, setGroup] = useState('');
     const [description, setDescription] = useState('');
     const [maxUsers, setMaxUsers] = useState<number | ''>('');
     const [minUsers, setMinUsers] = useState<number | ''>('');
-    const [trainingsID, setTrainingsID] = useState('');
     const [dateOptions, setDateOptions] = useState<[string, string][]>([['', '']]);
     const [error, setError] = useState<string | null>(null);
 
@@ -44,24 +43,27 @@ const AddEvent: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/api/trainings/create', {
+            const response = await axios.post('http://localhost:5000/api/trainings/create', {
                 name,
-                resourceId,
                 description,
+                group,
                 maxUsers,
                 minUsers,
-                trainingsID,
                 dateOptions,
+            }, 
+            { 
+                headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+              },
             });
             if (response.status === 201) {
                 alert('Event created successfully!');
                 // Reset form
                 setName('');
-                setResourceId('');
+                setGroup('');
                 setDescription('');
                 setMaxUsers('');
                 setMinUsers('');
-                setTrainingsID('');
                 setDateOptions([['', '']]);
                 setError(null);
             }
@@ -86,11 +88,11 @@ const AddEvent: React.FC = () => {
                     </FormControl>
 
                     <FormControl fullWidth margin="normal">
-                        <InputLabel htmlFor="resourceId">Resource ID</InputLabel>
+                        <InputLabel htmlFor="group">Group</InputLabel>
                         <Input
-                            id="resourceId"
-                            value={resourceId}
-                            onChange={(e) => setResourceId(e.target.value)}
+                            id="group"
+                            value={group}
+                            onChange={(e) => setGroup(e.target.value)}
                         />
                     </FormControl>
 
@@ -122,15 +124,6 @@ const AddEvent: React.FC = () => {
                             id="minUsers"
                             value={minUsers}
                             onChange={(e) => setMinUsers(Number(e.target.value))}
-                        />
-                    </FormControl>
-
-                    <FormControl fullWidth margin="normal">
-                        <InputLabel htmlFor="trainingsID">Training ID</InputLabel>
-                        <Input
-                            id="trainingsID"
-                            value={trainingsID}
-                            onChange={(e) => setTrainingsID(e.target.value)}
                         />
                     </FormControl>
 
