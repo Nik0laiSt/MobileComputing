@@ -3,7 +3,7 @@ import { authenticateUser, getUserByEmail, getUserById} from '../services/userSe
 import { createUser as createService} from '../services/userService';
 import { updateUser as updateService} from '../services/userService';
 import { deleteUser as deleteService} from '../services/userService';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { User } from '../models/User';
 
 export const getUser = async (req: Request, res: Response) => {
