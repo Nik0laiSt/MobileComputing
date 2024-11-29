@@ -10,3 +10,13 @@ export const getGroupByName = async (name: string): Promise<Group | null> => {
     }
     return null;
 };
+
+export const getGroupsForUser = async (userId: number): Promise<Group[] | null> => {
+    const query = `SELECT  g.id, g.name FROM user_groups ug JOIN groups g ON ug.group_id = g.id WHERE user_id = ?`;
+    const [rows] = await db.execute(query, [userId]);
+    
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as Group[]; 
+    }
+    return null;
+};

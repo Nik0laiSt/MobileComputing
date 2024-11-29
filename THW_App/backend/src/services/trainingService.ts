@@ -28,6 +28,16 @@ export const getTrainingByTitle = async (title: string): Promise<Training | null
     return null;
 };
 
+export const getTrainingsForGroup = async (groupId: number): Promise<Training[] | null> => {
+    const query = `SELECT * FROM trainings WHERE group_id = ?`;
+    const [rows] = await db.execute(query, [groupId]);
+    
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as Training[]; 
+    }
+    return null;
+};
+
 export const createTraining = async (name: string, description: string, groupId: number): Promise<boolean> => {
   
     const createTrainingQuery = `

@@ -27,11 +27,11 @@ export const getAllRegistrationsForTrainingSession = async (sessionId: number): 
 
 export const createRegistration = async (sessionId: number, userId: number): Promise<boolean> => {
     const query = `
-        INSERT INTO session_registrations (session_id, user_id, registration_date) 
-        VALUES (?, ?, ?)
+        INSERT INTO session_registrations (session_id, user_id) 
+        VALUES (?, ?)
     `;
     
-    const [result] = await db.execute(query, [sessionId, userId, Date.now]);
+    const [result] = await db.execute(query, [sessionId, userId]);
     return (result as any).affectedRows > 0; 
 };
 

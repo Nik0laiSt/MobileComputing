@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
-import { getTrainingById as getByIdService } from '../services/trainingService';
+import { getTrainingById as getByIdService, getTrainingsForGroup } from '../services/trainingService';
 import { getTrainingByName as getByNameService } from '../services/trainingService';
 import { getTrainingByTitle as getByTitleService } from '../services/trainingService';
 import { createTraining as createTrainingService} from '../services/trainingService';
 import { createTrainingSession as createSessionService} from '../services/trainingSessionService';
 import { updateTraining as updateService} from '../services/trainingService';
 import { deleteTraining as deleteService} from '../services/trainingService';
-import { getGroupByName } from '../services/groupService';
+import { getGroupByName, getGroupsForUser } from '../services/groupService';
+import { getUserById } from '../services/userService';
+import { Training } from '../models/Training';
 
 export const getTrainingById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
@@ -26,6 +28,25 @@ export const getTrainingByTitle = async (req: Request, res: Response) => {
         return;
       }
     res.json(training);
+};
+
+export const getAllTrainingsForUser = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id, 10);
+  const trainings: (Training)[] = [];
+  const user = await getUserById(id);
+  const groups = await getGroupsForUser(user.id)
+  if (!groups) {
+      res.json(trainings);
+      return;
+    }
+
+  for (const group of groups) {
+    const trainingsForGroup = await getTrainingsForGroup(group.id);
+    if (trainingsForGroup !== null) {
+      trainings.concat(trainingsForGroup);
+    }
+  }
+  res.json(trainings);
 };
 
 export const createTraining = async (req: Request, res: Response) => {
