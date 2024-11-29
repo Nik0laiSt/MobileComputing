@@ -63,6 +63,6 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 const generateJwtToken = (user: User) => {
-  const payload = { id: user.id, email: user.email, role: 'admin' };
+  const payload = { id: user.id, email: user.email, role: user.role };
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
