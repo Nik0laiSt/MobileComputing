@@ -39,8 +39,6 @@ export const createUser = async (name: string, prename: string, email: string, p
 
 export const authenticateUser = async (user: User, password: string): Promise<boolean> => {
     // Passwortüberprüfung
-    console.log(password);
-    console.log(user.password_hash);
     const isMatch = await bcrypt.compare(password, user.password_hash);
     return isMatch;
 };
