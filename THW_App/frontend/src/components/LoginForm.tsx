@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/LoginForm.css'; // Das CSS-Stylesheet importieren
 
 interface LoginFormProps {
     onLoginSuccess: () => void;
@@ -26,6 +27,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
     };
 
     return (
+        /*
         <form onSubmit={handleSubmit} style={styles.form}>
             {error && <p style={styles.error}>{error}</p>}
             <div style={styles.inputGroup}>
@@ -38,6 +40,35 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
             </div>
             <button type="submit" style={styles.button}>Login</button>
         </form>
+        */
+        <div className="login-container">
+            <form onSubmit={handleSubmit} className="login-form">
+                {error && <p className="error-message">{error}</p>}
+                <div className="input-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        placeholder="Gib deine E-Mail ein"
+                    />
+                </div>
+                <div className="input-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        placeholder="Gib dein Passwort ein"
+                    />
+                </div>
+                <button type="submit" className="submit-button">Login</button>
+            </form>
+        </div>
     );
 };
 

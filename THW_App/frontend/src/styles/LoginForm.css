@@ -1,0 +1,75 @@
+/* Allgemeine Container-Formatierung */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Formular-Styles */
+.login-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fehlernachricht */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Input-Gruppe */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button-Style */
+.submit-button {
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsivität */
+@media (max-width: 480px) {
+    .login-form {
+        width: 90%;
+        padding: 20px;
+    }
+}

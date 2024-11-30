@@ -148,6 +148,7 @@ const AddEvent: React.FC = () => {
                                     onChange={(e) => handleDateChange(index, 'start', e.target.value)}
                                     required
                                     fullWidth
+                                    focused
                                 />
                                 <TextField
                                     type="datetime-local"
@@ -156,6 +157,7 @@ const AddEvent: React.FC = () => {
                                     onChange={(e) => handleDateChange(index, 'end', e.target.value)}
                                     required
                                     fullWidth
+                                    focused
                                 />
                                 <IconButton
                                     color="secondary"
