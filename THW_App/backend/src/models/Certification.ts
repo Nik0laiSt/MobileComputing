@@ -1,9 +1,8 @@
-// Schulung
-export interface Training {
+export interface Certification {
     id: number;
     title: string;
     description: string;
-    certification_id: number;
+    group_id: number;
     created_by: number;
     created_at: Date;
 }

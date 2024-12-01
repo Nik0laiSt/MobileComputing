@@ -1,6 +1,8 @@
 import db from '../database/connection'; // Die Datenbankverbindung wird importiert
 import * as bcrypt from 'bcrypt'; // Für die Hashing-Funktionalität der Passwörter
 import { User } from '../models/User'; // Benutzer-Modell-Interface oder Klasse
+import { Group } from '../models/Group';
+import { Certification } from '../models/Certification';
 
 // Anzahl der Runden für den Passwort-Hashing-Prozess
 const SALT_ROUNDS = 10;
@@ -21,6 +23,22 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
         return rows[0] as User; // Rückgabe des ersten gefundenen Benutzers
     }
     return null; // Wenn kein Benutzer gefunden wird
+};
+
+export const getUserGroupsById = async (id: number): Promise<Group[] | null> => {
+    const [rows] = await db.query('SELECT id, name, description FROM user_groups as ug join groups as g on group_id = id WHERE user_id = ?', [id]);
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as Group[]; // Rückgabe aller Gruppen eines Benutzers
+    }
+    return null; // Wenn keine Gruppen gefunden wurden
+};
+
+export const getUserGroupCertificationsById = async (id: number, group_id: number): Promise<Certification[] | null> => {
+    const [rows] = await db.query('SELECT * FROM user_groups as ug join certifications as c on ug.group_id = c.group_id WHERE user_id = ? and ug.group_id = ?', [id, group_id]);
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as Certification[]; // Rückgabe aller Fortbildungen einer Gruppe
+    }
+    return null; // Wenn keine Fortbildungen gefunden wurden
 };
 
 export const createUser = async (name: string, prename: string, email: string, password: string): Promise<boolean> => {

@@ -38,15 +38,25 @@ export const getTrainingsForGroup = async (groupId: number): Promise<Training[] 
     return null;
 };
 
-export const createTraining = async (name: string, description: string, groupId: number): Promise<boolean> => {
+export const createTraining = async (name: string, description: string, certification: number, user: number): Promise<Training> => {
   
     const createTrainingQuery = `
-        INSERT INTO trainings (title, description, group_Id) 
-        VALUES (?, ?, ?)
+        INSERT INTO trainings (title, description, certification_id, created_by) 
+        VALUES (?, ?, ?, ?)
     `;
 
-    const [result] = await db.execute(createTrainingQuery, [name, description, groupId]);
-    return (result as any).affectedRows > 0; 
+    const [result] = await db.execute(createTrainingQuery, [name, description, certification, user]);
+    if(result && (result as any).affectedRows == 1){
+        return {
+            id: (result as any).insertId,
+            title: name,
+            description: description,
+            certification_id: certification,
+            created_by: user,
+            created_at: new Date()
+        };
+    }
+    return null; 
 };
 
 export const deleteTraining = async (id: number): Promise<boolean> => {

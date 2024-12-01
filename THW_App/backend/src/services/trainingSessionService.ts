@@ -19,7 +19,7 @@ export const getAllSessionsForTraining = async (id: number): Promise<TrainingSes
 
 export const createTrainingSession = async (trainingId: number, startDate: Date, endDate: Date, maxParticipants: number, minParticipants: number, location: string): Promise<boolean> => {
     const query = `
-        INSERT INTO training_sessions (training_id, start_date, end_date, max_participants, min_participants, location) 
+        INSERT INTO training_sessions (training_id, start_datetime, end_datetime, max_participants, min_participants, location) 
         VALUES (?, ?, ?, ?, ?, ?)
     `;   
     
@@ -40,7 +40,7 @@ export const deleteTrainingSession = async (id: number): Promise<boolean> => {
 export const updateTrainingSession = async (id: number, trainingId: number, startDate: Date, endDate: Date, location:string, maxParticipants: number): Promise<boolean> => {
     const query = `
         UPDATE training_sessions
-        SET training_id = ?, start_date = ?, end_date = ?, location = ?, max_participants = ?
+        SET training_id = ?, start_datetime = ?, end_datetime = ?, location = ?, max_participants = ?
         WHERE id = ?;
     `;
 

@@ -49,20 +49,19 @@ export const getAllTrainingsForUser = async (req: Request, res: Response) => {
   res.json(trainings);
 };
 
-export const createTraining = async (req: Request, res: Response) => {
-    const { name, description, group, maxUsers, minUsers, dateOptions } = req.body;
-    const groupId = (await getGroupByName(group)).id;
-    console.log(groupId)
-    var success = createTrainingService(name, description, groupId);
+export const createTraining = async (req, res) => {
+  var success = false;
+  const { name, certification, description, maxUsers, minUsers, location, dateOptions } = req.body;
 
-    if(success){
-      var training = await getByNameService(name);
-      dateOptions.forEach(([startDate, endDate]) => {
-        console.log(startDate, endDate)
-        success = createSessionService(training.id, startDate, endDate, maxUsers, minUsers, "location");
-      });   
-    } 
-    res.json(success);
+  var training = await createTrainingService(name, description, certification, req.user.id);
+  if(training){
+    success = true;
+    dateOptions.forEach(async ([startDate, endDate]) => {
+      console.log(startDate, endDate)
+      success = success && await createSessionService(training.id, startDate, endDate, maxUsers, minUsers, location);
+    });   
+  } 
+  res.json(training);
 };
 
 export const updateTraining = async (req: Request, res: Response) => {

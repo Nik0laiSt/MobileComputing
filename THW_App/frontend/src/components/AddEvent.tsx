@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Container } from 'react-bootstrap';
 import { 
@@ -9,18 +8,73 @@ import {
     TextField, 
     Button, 
     FormHelperText, 
-    IconButton 
+    IconButton, 
+    Select,
+    MenuItem,
+    CircularProgress,
+    SelectChangeEvent
 } from '@mui/material';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import api from '../services/api';
+
+
+interface Group {
+    id: number;
+    name: string;
+  }
+  
+interface Certification {
+    id: number;
+    title: string;
+}
+
 
 const AddEvent: React.FC = () => {
     const [name, setName] = useState('');
-    const [group, setGroup] = useState('');
+    const [group, setGroup] = useState<number | ''>('');
+    const [groups, setGroups] = useState<Group[]>([]);
+    const [certification, setCertification] = useState<number | ''>('');
+    const [certifications, setCertifications] = useState<Certification[]>([]);
+    const [loadingGroups, setLoadingGroups] = useState(true);
+    const [loadingCertifications, setLoadingCertifications] = useState(false);
     const [description, setDescription] = useState('');
     const [maxUsers, setMaxUsers] = useState<number | ''>('');
     const [minUsers, setMinUsers] = useState<number | ''>('');
+    const [location, setLocation] = useState('');
     const [dateOptions, setDateOptions] = useState<[string, string][]>([['', '']]);
     const [error, setError] = useState<string | null>(null);
+
+
+    // Laden der Gruppen beim Initialisieren der Komponente
+    useEffect(() => {
+        api.get('/users/groups')
+        .then(response => {
+            setGroups(response.data);
+            setLoadingGroups(false);
+        })
+        .catch(error => {
+            setError('Fehler beim Laden der Gruppen');
+            setLoadingGroups(false);
+        });
+    }, []);
+
+    // Laden der Zertifikate, wenn eine Gruppe ausgewählt wird
+    useEffect(() => {
+        if (group) {
+        setLoadingCertifications(true);
+        api.get(`/users/certifications?group=${group}`)
+            .then(response => {
+            setCertifications(response.data);
+            setLoadingCertifications(false);
+            setCertification(''); // Zertifikat zurücksetzen
+            })
+            .catch(error => {
+            setError('Fehler beim Laden der Zertifikate');
+            setLoadingCertifications(false);
+            });
+        }
+    }, [group]);
+
 
     const handleAddDateRange = () => {
         setDateOptions([...dateOptions, ['', '']]);
@@ -43,27 +97,26 @@ const AddEvent: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/trainings/create', {
+            const response = await api.post('/trainings/create', {
                 name,
                 description,
-                group,
+                certification,
                 maxUsers,
                 minUsers,
+                location,
                 dateOptions,
-            }, 
-            { 
-                headers: {
-                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-              },
             });
-            if (response.status === 201) {
+            console.log(response.status);
+            if (response.status === 200) {
                 alert('Event created successfully!');
                 // Reset form
                 setName('');
                 setGroup('');
+                setCertification('');
                 setDescription('');
                 setMaxUsers('');
                 setMinUsers('');
+                setLocation('');
                 setDateOptions([['', '']]);
                 setError(null);
             }
@@ -87,13 +140,51 @@ const AddEvent: React.FC = () => {
                         <FormHelperText id="eventName-helper-text">Enter the name of the event</FormHelperText>
                     </FormControl>
 
-                    <FormControl fullWidth margin="normal">
-                        <InputLabel htmlFor="group">Group</InputLabel>
-                        <Input
-                            id="group"
+                    <FormControl fullWidth margin="normal" error={!!error}>
+                        <InputLabel id="group-label">Group</InputLabel>
+                        <Select
+                            labelId="group-label"
                             value={group}
-                            onChange={(e) => setGroup(e.target.value)}
-                        />
+                            onChange={(e) => setGroup(e.target.value as number)}
+                            displayEmpty
+                            fullWidth
+                        >
+                            {loadingGroups ? (
+                            <MenuItem disabled>
+                                <CircularProgress size={24} />
+                            </MenuItem>
+                            ) : (
+                            groups.map(group => (
+                                <MenuItem key={group.id} value={group.id}>
+                                {group.name}
+                                </MenuItem>
+                            ))
+                            )}
+                        </Select>
+                        {error && <FormHelperText>{error}</FormHelperText>}
+                    </FormControl>                    
+
+                    <FormControl fullWidth margin="normal" disabled={!group} error={!!error}>
+                        <InputLabel id="certification-label">Certification</InputLabel>
+                        <Select
+                            labelId="certification-label"
+                            value={certification}
+                            onChange={(e) => setCertification(e.target.value as number)}
+                            displayEmpty
+                            fullWidth
+                        >
+                            {loadingCertifications ? (
+                            <MenuItem disabled>
+                                <CircularProgress size={24} />
+                            </MenuItem>
+                            ) : (
+                            certifications.map(cert => (
+                                <MenuItem key={cert.id} value={cert.id}>
+                                {cert.title}
+                                </MenuItem>
+                            ))
+                            )}
+                        </Select>
                     </FormControl>
 
                     <FormControl fullWidth margin="normal" required>
@@ -125,6 +216,17 @@ const AddEvent: React.FC = () => {
                             value={minUsers}
                             onChange={(e) => setMinUsers(Number(e.target.value))}
                         />
+                    </FormControl>
+
+                    <FormControl fullWidth margin="normal" required>
+                        <InputLabel htmlFor="location">Location</InputLabel>
+                        <Input
+                            id="location"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            aria-describedby="location-helper-text"
+                        />
+                        <FormHelperText id="location-helper-text">Enter the location, where the event will take place</FormHelperText>
                     </FormControl>
 
                     <Box sx={{ marginTop: 4, marginBottom: 2 }}>

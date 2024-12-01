@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { authenticateUser, getUserByEmail, getUserById} from '../services/userService';
+import { authenticateUser, getUserByEmail, getUserById, getUserGroupCertificationsById, getUserGroupsById} from '../services/userService';
 import { createUser as createService} from '../services/userService';
 import { updateUser as updateService} from '../services/userService';
 import { deleteUser as deleteService} from '../services/userService';
@@ -14,6 +14,27 @@ export const getUser = async (req: Request, res: Response) => {
         return;
       }
     res.json(user);
+};
+
+export const getAllGroupsForUser = async (req, res) => {
+  const id = req.user.id;
+    const groups = await getUserGroupsById(id);
+    if (!groups) {
+        res.status(400).json({ message: 'Keine Gruppen für Benutzer gefunden' });
+        return;
+      }
+    res.json(groups);
+};
+
+export const getAllCertificationsForUser = async (req, res) => {
+  const id = req.user.id;
+  const group_id = req.query.group;
+    const certifications = await getUserGroupCertificationsById(id, group_id);
+    if (!certifications) {
+        res.status(400).json({ message: 'Keine Fortbildungen für Benutzer-Gruppe gefunden' });
+        return;
+      }
+    res.json(certifications);
 };
 
 export const createUser = async (req: Request, res: Response) => {
