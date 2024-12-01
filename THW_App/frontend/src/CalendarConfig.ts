@@ -5,7 +5,7 @@ import { EventModel } from '@bryntum/calendar'; // Importiere EventModel, um den
 
 
 export const calendarProps: BryntumCalendarProps = {
-    date : new Date(2022, 2, 15),
+    date : new Date(),
     dragFeature: false, // Drag-and-Drop deaktivieren
     eventEditFeature: false,
     eventCopyPasteFeature: false,
@@ -14,7 +14,7 @@ export const calendarProps: BryntumCalendarProps = {
     scheduleMenuFeature: false, // Deaktiviert das Kontextmenü für leere Bereiche
     eventTooltipFeature: false, // Deaktiviert die Eventübersicht beim Klick
 
-    
+
     /*{
         eventTooltipFeature: {
             template: ({ eventRecord }: { eventRecord: EventModel }) => `
@@ -45,7 +45,11 @@ export const calendarProps: BryntumCalendarProps = {
     crudManager : {
         transport : {
             load : {
-                url : 'data.json'
+                url: `http://localhost:5000/api/calendar/sessionRegistrations`,
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+                },
             }
         },
         autoLoad : true

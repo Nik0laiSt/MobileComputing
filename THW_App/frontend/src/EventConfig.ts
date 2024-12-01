@@ -2,7 +2,7 @@
 import { BryntumCalendarProps } from '@bryntum/calendar-react';
 
 const eventProps: BryntumCalendarProps = {
-    date : new Date(2022, 2, 15),
+    date : new Date(),
     dragFeature: false, // Drag-and-Drop deaktivieren
     eventEditFeature: false,
     eventCopyPasteFeature: false,
@@ -13,7 +13,11 @@ const eventProps: BryntumCalendarProps = {
     crudManager : {
         transport : {
             load : {
-                url : 'data.json'
+                url: `http://localhost:5000/api/calendar/sessions`,
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+                },
             }
         },
         autoLoad : true
