@@ -6,8 +6,8 @@ import { deleteUser as deleteService} from '../services/userService';
 import * as jwt from 'jsonwebtoken';
 import { User } from '../models/User';
 
-export const getUser = async (req: Request, res: Response) => {
-    const userId = parseInt(req.params.id, 10);
+export const getUser = async (req, res) => {
+    const userId = parseInt(req.params.id, 10) || req.user.id;
     const user = await getUserById(userId);
     if (!user) {
         res.status(400).json({ message: 'Benutzer nicht gefunden' });

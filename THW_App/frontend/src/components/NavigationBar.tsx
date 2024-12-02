@@ -5,10 +5,24 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import api from '../services/api';
 
 export default function LabelBottomNavigation() {
-  const [value, setValue] = React.useState('recents');
+  const [userRole, setUserRole] = useState('');
+  const [value, setValue] = useState('recents');
   const navigate = useNavigate();  // Hook for navigation
+
+  useEffect(() => {
+    api.get(`/users`)
+    .then(response => {
+      setUserRole(response.data.role);
+    })
+    .catch(error => {
+      setUserRole('');
+    });
+  }, []);
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
 
@@ -40,12 +54,14 @@ export default function LabelBottomNavigation() {
         value="calendar"
         icon={<CalendarMonthIcon />}
       />
-      <BottomNavigationAction
-        label="AddEvent"
-        value="addEvent"
-        icon={<AddCircleOutlineIcon />}
-      />
-
+      {userRole === 'admin' && ( 
+        <BottomNavigationAction
+          label="AddEvent"
+          value="addEvent"
+          
+          icon={<AddCircleOutlineIcon />}
+        />
+      )}
     </BottomNavigation>
   );
 }

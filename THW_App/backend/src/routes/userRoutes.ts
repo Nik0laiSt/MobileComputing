@@ -5,6 +5,7 @@ import { authenticateToken, checkRole } from '../middlewares/authMiddleware';
 import { getAllTrainingsForUser } from '../controllers/trainingController';
 
 const router = Router();
+router.get('', authenticateToken, getUser);
 router.get('/groups', authenticateToken, getAllGroupsForUser);
 router.get('/certifications', authenticateToken, getAllCertificationsForUser);
 router.get('/:id', authenticateToken, getUser);
