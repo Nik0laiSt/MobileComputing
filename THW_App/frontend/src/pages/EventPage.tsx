@@ -6,11 +6,26 @@ import { FunctionComponent, useRef } from 'react';
 import { BryntumCalendar } from '@bryntum/calendar-react';
 import '../App.scss';
 import { eventProps } from '../EventConfig';
+import api from '../services/api';
+import { EventModel } from '@bryntum/calendar';
 
 const EventPage: React.FC = () => {
-
+    const navigate= useNavigate();
     const calendar = useRef<BryntumCalendar>(null);
-    
+
+    const handleEventClick = async (event: EventModel) => {
+        try {
+            const response = await api.get(`/trainingSessions/${event.id}`);
+            if (response.status === 200) {
+                const eventData = response.data;
+                navigate(`/event/${event.id}`, { state: eventData }); // Event-Daten als state übergeben
+            } else {
+                console.error('Fehler beim Laden des Events:', response.status);
+            }
+        } catch (error) {
+            console.error('API-Fehler:', error);
+        }
+    };
 
     return (
         <div style={styles.pageContainer}>
@@ -21,6 +36,7 @@ const EventPage: React.FC = () => {
                 <BryntumCalendar
                 ref = {calendar}
                 {...eventProps}
+                onEventClick={({ eventRecord }) => handleEventClick(eventRecord)} // API-Aufruf ausführen
                 />
             </main>
             <div style={styles.footer}>

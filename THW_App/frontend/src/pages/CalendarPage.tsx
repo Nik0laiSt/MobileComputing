@@ -10,6 +10,7 @@ import { calendarProps } from '../CalendarConfig';
 import '../App.scss';
 import { EventModel } from '@bryntum/calendar';
 import axios from 'axios';
+import api from '../services/api';
 
 const CalendarPage: React.FC = () => {
     const navigate= useNavigate();
@@ -17,7 +18,7 @@ const CalendarPage: React.FC = () => {
     const handleEventClick = async (event: EventModel) => {
         try {
             // API-Aufruf mit Axios, um Event-Daten zu laden
-            const response = await axios.get(`/api/events/${event.id}`);
+            const response = await api.get(`/trainingSessions/${event.id}`);
 
             // Optional: Prüfe oder verarbeite die API-Antwort
             if (response.status === 200) {

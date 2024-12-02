@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { useLocation, useParams } from 'react-router-dom';
 
 // **Export des Interfaces**
 export interface EventProps {
@@ -22,15 +23,13 @@ export interface EventProps {
 }
 
 
-const EventDisplay: React.FC<EventProps> = ({
-    name,
-    resourceId,
-    description,
-    maxUsers,
-    minUsers,
-    trainingsID,
-    dateOptions,
-}) => {
+const EventDisplay: React.FC = () => {
+
+  const { eventId } = useParams();
+  const location = useLocation();
+  const eventData = location.state; // Das übergebene State-Objekt
+  const dateOptions: [string, string] = ['',''];
+  
     // Transform dateOptions into a readable format
     const formattedDateOptions = dateOptions.map(([start, end]) => ({
         start,
@@ -82,7 +81,7 @@ const EventDisplay: React.FC<EventProps> = ({
                                 </Typography>
                             </Col>
                             <Col>
-                                <Typography variant="body1">{name}</Typography>
+                                <Typography variant="body1">{eventData.title}</Typography>
                             </Col>
                         </Row>
 
@@ -93,7 +92,7 @@ const EventDisplay: React.FC<EventProps> = ({
                                 </Typography>
                             </Col>
                             <Col>
-                                <Typography variant="body1">{description}</Typography>
+                                <Typography variant="body1">{eventData.description}</Typography>
                             </Col>
                         </Row>
 

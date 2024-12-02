@@ -34,7 +34,7 @@ const App: FunctionComponent = () => {
           <Route path="/calendar" element={<CalendarPage/>}/>
           <Route path="/events" element={<EventPage/>}/>
           <Route path="/add-event" element={<AddEventPage/>}/>
-          <Route path="/event-details" element={<EventDisplayPage/>}/>
+          <Route path="/event/:id" element={<EventDisplayPage/>}/>
           {/*<Route path="/add-event" element={<AddEventPage/>}/>*/}
         </Routes>
       </Router>
