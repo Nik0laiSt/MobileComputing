@@ -20,7 +20,12 @@ const App: FunctionComponent = () => {
 
 
     return (
-      <Router>
+      <Router
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           {/* Root-Route leitet auf die Login-Seite */}
           <Route path="/" element={<Navigate to="/login" />} />

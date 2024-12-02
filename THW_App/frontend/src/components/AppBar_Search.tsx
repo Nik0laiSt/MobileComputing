@@ -67,7 +67,7 @@ export default function SearchAppBar() {
           </IconButton>
           {/* Logo as Image from public folder */}
           <img 
-            src="../../public/logo.svg"  // Adjust the filename to match your actual logo's filename in the public folder
+            src="/logo.svg"  // Adjust the filename to match your actual logo's filename in the public folder
             alt="App Logo"
             style={{
               height: 40,  // Adjust the height as necessary
