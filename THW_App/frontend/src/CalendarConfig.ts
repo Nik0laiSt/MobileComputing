@@ -45,7 +45,7 @@ export const calendarProps: BryntumCalendarProps = {
     crudManager : {
         transport : {
             load : {
-                url: `http://localhost:5000/api/calendar/sessionRegistrations`,
+                url: `http://localhost:5000/api/calendar/sessions?sessionState=reg`,
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,

@@ -20,3 +20,23 @@ export const getCalSessionsForUser = async (userId: number): Promise<CalendarSes
     }
     return null;
 };
+
+export const getCalSessionsRegisteredForUser = async (userId: number): Promise<CalendarSessions[] | null> => {
+    const query = `SELECT * FROM cal_user_sessions_registered WHERE user_id = ?`;
+    const [rows] = await db.execute(query, [userId]);
+    
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as CalendarSessions[]; 
+    }
+    return null;
+};
+
+export const getCalSessionsUnregisteredForUser = async (userId: number): Promise<CalendarSessions[] | null> => {
+    const query = `SELECT * FROM cal_user_sessions_unregistered WHERE user_id = ?`;
+    const [rows] = await db.execute(query, [userId]);
+    
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as CalendarSessions[]; 
+    }
+    return null;
+};

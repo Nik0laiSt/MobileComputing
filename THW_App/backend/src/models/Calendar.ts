@@ -11,11 +11,3 @@ export interface CalendarSessions {
     endDate: Date;
     resourceId: string
 }
-
-export interface CalendarSessionRegistrations {
-    id: number;
-    name: string;
-    startDate: Date;
-    endDate: Date;
-    resourceId: string
-}
