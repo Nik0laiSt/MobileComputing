@@ -18,6 +18,3 @@ RUN npm run dev
 
 # Setze den Port, auf dem die App laufen soll
 EXPOSE 5000
-
-# Starte die App
-CMD ["npm", "start"]
