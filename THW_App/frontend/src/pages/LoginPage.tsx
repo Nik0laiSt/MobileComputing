@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from '../components/AppBar_Search';
-import Footer from '../components/NavigationBar';
 import LoginForm from '../components/LoginForm';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -14,8 +12,6 @@ const LoginPage: React.FC = () => {
 
     return (
         <Container fluid className="d-flex flex-column min-vh-100 bg-white">
-            
-
             <Row className="flex-grow-1 d-flex align-items-center justify-content-center">
                 <Col xs={10} sm={8} md={8} lg={8} xl={8} className="text-center p-4 bg-white rounded shadow">
                     <img 
@@ -28,8 +24,6 @@ const LoginPage: React.FC = () => {
                     <LoginForm onLoginSuccess={handleLoginSuccess} />
                 </Col>
             </Row>
-
-            <Footer /> {/* Optional: Footer at the bottom */}
         </Container>
     );
 };
