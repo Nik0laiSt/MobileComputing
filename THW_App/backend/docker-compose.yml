@@ -1,14 +1,18 @@
 services:
-  react-backend:
+  backend:
     container_name: backend  # Name des Adminer-Containers
     build:
-      context: /opt/docker/mc/THW_App/backend  # Der Pfad zu deinem lokalen Verzeichnis, in dem das Dockerfile liegt
-      dockerfile: dockerfile  # Der Name des Dockerfiles (optional, wenn es "Dockerfile" heißt)
+      context: /opt/docker/mc/THW_App/backend  # Pfad zum Dockerfile
+    ports:
+      - "5000:5000"  # Host-Port 5000 wird an Container-Port 5000 gebunden
+    environment:
+      - NODE_ENV=production  # Optional: Setzt die Umgebungsvariable für die App
+    volumes:
+      - /opt/docker/mc/THW_App/backend:/app  # Optional: Bindet das lokale Verzeichnis in den Container ein
+    working_dir: /app  # Setzt das Arbeitsverzeichnis im Container
     networks:
       backend:
         ipv4_address: 172.20.1.4
-    ports:
-      - "5000:5000"  # Mappt den Port 3000 des Containers auf den Host
     deploy:
       replicas: 1
       restart_policy:
