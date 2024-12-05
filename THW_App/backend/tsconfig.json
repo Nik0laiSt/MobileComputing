@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "outDir": "./dist",  // Stellt sicher, dass die kompilierte Ausgabe in das dist-Verzeichnis geht
       "target": "es5",
       "downlevelIteration": true
     }
