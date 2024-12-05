@@ -1,9 +1,20 @@
-version: '3.8'
-
 services:
   react-backend:
+    container_name: backend  # Name des Adminer-Containers
     build:
-      context: .  # Der Pfad zu deinem lokalen Verzeichnis, in dem das Dockerfile liegt
-      dockerfile: /root/MobileComputing/THW_App/backend/dockerfile  # Der Name des Dockerfiles (optional, wenn es "Dockerfile" heißt)
+      context: /opt/docker/mc/THW_App/backend  # Der Pfad zu deinem lokalen Verzeichnis, in dem das Dockerfile liegt
+      dockerfile: dockerfile  # Der Name des Dockerfiles (optional, wenn es "Dockerfile" heißt)
+    networks:
+      backend:
+        ipv4_address: 172.20.1.4
     ports:
       - "5000:5000"  # Mappt den Port 3000 des Containers auf den Host
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  backend:
+    external: true  # Verwendung des bestehenden Netzwerks "backend"
+    name: backend   # Der Name des bestehenden Netzwerks
