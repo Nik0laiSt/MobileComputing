@@ -13,8 +13,11 @@ RUN npm install
 # Kopiere den Rest der Anwendung ins Arbeitsverzeichnis
 COPY . .
 
-# Baue das React-Projekt (falls es noch nicht gebaut wurde)
-RUN npm run dev
+# Baue das React-Projekt
+RUN npm run build
 
 # Setze den Port, auf dem die App laufen soll
 EXPOSE 5000
+
+# Setze den Startbefehl für die Anwendung
+CMD ["npm", "start"]
