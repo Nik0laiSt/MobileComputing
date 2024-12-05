@@ -15,7 +15,7 @@ const EventPage: React.FC = () => {
 
     const handleEventClick = async (event: EventModel) => {
         try {
-            const response = await api.get(`/trainingSessions/${event.id}`);
+            const response = await api.get(`/users/session/${event.id}`);
             if (response.status === 200) {
                 const eventData = response.data;
                 navigate(`/event/${event.id}`, { state: eventData }); // Event-Daten als state übergeben

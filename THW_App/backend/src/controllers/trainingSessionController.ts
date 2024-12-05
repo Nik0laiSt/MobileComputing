@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getTrainingSessionById as getByIdService } from '../services/trainingSessionService';
+import { getRegisteredSessionUsersById as getRegisteredSessionUsersByIdService } from '../services/trainingSessionService';
 import { updateTrainingSession as updateService} from '../services/trainingSessionService';
 import { deleteTrainingSession as deleteService} from '../services/trainingSessionService';
 import { getAllRegistrationsForUser as getAllRegistrationsForUserService } from '../services/sessionRegistrationService';
@@ -17,6 +18,16 @@ export const getTrainingSessionById = async (req: Request, res: Response) => {
         return;
       }
     res.json(training);
+};
+
+export const getRegisteredSessionUsersById = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id, 10);
+    const registeredSessionUsers = await getRegisteredSessionUsersByIdService(id);
+    if (!registeredSessionUsers) {
+        res.status(400).json({ message: 'Keine registrierten Benutzer für den Schulungstermin gefunden' });
+        return;
+      }
+    res.json(registeredSessionUsers);
 };
 
 export const updateTrainingSession = async (req: Request, res: Response) => {
@@ -66,8 +77,11 @@ export const getAllSessionsForTraining = async (req: Request, res: Response) => 
   res.json(trainings);
 };
 
-export const registerUserForTrainingSession = async (req: Request, res: Response) => {
-    const userId = parseInt(req.params.userId, 10);
+export const registerUserForTrainingSession = async (req, res) => {
+    var userId = parseInt(req.params.userId, 10);
+    if(!userId) {
+      userId = req.user.id
+    }
     const sessionId = parseInt(req.params.sessionId, 10);
     const success = createRegistration(sessionId, userId);
     res.json(success);

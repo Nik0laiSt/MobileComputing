@@ -18,7 +18,7 @@ const CalendarPage: React.FC = () => {
     const handleEventClick = async (event: EventModel) => {
         try {
             // API-Aufruf mit Axios, um Event-Daten zu laden
-            const response = await api.get(`/trainingSessions/${event.id}`);
+            const response = await api.get(`/users/session/${event.id}`);
 
             // Optional: Prüfe oder verarbeite die API-Antwort
             if (response.status === 200) {

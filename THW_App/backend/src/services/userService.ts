@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt'; // F체r die Hashing-Funktionalit채t der Passw�
 import { User } from '../models/User'; // Benutzer-Modell-Interface oder Klasse
 import { Group } from '../models/Group';
 import { Certification } from '../models/Certification';
+import { TrainingSession } from '../models/TrainingSession';
 
 // Anzahl der Runden f체r den Passwort-Hashing-Prozess
 const SALT_ROUNDS = 10;
@@ -37,6 +38,14 @@ export const getUserGroupCertificationsById = async (id: number, group_id: numbe
     const [rows] = await db.query('SELECT * FROM user_groups as ug join certifications as c on ug.group_id = c.group_id WHERE user_id = ? and ug.group_id = ?', [id, group_id]);
     if (Array.isArray(rows) && rows.length > 0) {
         return rows as Certification[]; // R체ckgabe aller Fortbildungen einer Gruppe
+    }
+    return null; // Wenn keine Fortbildungen gefunden wurden
+};
+
+export const getUserSessionById = async (id: number, session_id: number): Promise<TrainingSession | null> => {
+    const [rows] = await db.query('SELECT * FROM user_sessions WHERE user_id = ? and session_id = ?', [id, session_id]);
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows[0] as TrainingSession; // R체ckgabe aller Fortbildungen einer Gruppe
     }
     return null; // Wenn keine Fortbildungen gefunden wurden
 };

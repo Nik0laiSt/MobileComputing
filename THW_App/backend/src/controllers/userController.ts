@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { authenticateUser, getUserByEmail, getUserById, getUserGroupCertificationsById, getUserGroupsById} from '../services/userService';
+import { authenticateUser, getUserByEmail, getUserById, getUserGroupCertificationsById, getUserGroupsById, getUserSessionById} from '../services/userService';
 import { createUser as createService} from '../services/userService';
 import { updateUser as updateService} from '../services/userService';
 import { deleteUser as deleteService} from '../services/userService';
@@ -35,6 +35,17 @@ export const getAllCertificationsForUser = async (req, res) => {
         return;
       }
     res.json(certifications);
+};
+
+export const getSessionForUser = async (req, res) => {
+  const id = req.user.id;
+  const session_id = req.params.id;
+    const session = await getUserSessionById(id, session_id);
+    if (!session) {
+        res.status(400).json({ message: 'Session für Benutzer nicht gefunden' });
+        return;
+      }
+    res.json(session);
 };
 
 export const createUser = async (req: Request, res: Response) => {
