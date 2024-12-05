@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/LoginForm.css'; // Das CSS-Stylesheet importieren
+import api, { setAuthToken } from '../services/api';
 
 interface LoginFormProps {
     onLoginSuccess: () => void;
@@ -15,32 +16,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         event.preventDefault();
         setError(null); // Clear previous errors
         try {
-            const response = await axios.post('http://localhost:5000/api/users/login', { email, password }); 
+            const response = await api.post('/users/login', { email, password }); 
             if (response.data) {
+                setAuthToken(response.data.token);
                 onLoginSuccess(); // Erfolgreiche Login-Aktion
             }
-            const token = response.data.token;
-            localStorage.setItem('jwtToken', token);
         } catch (err: any) {
             setError(err.response?.data?.message || 'Login failed. Please try again.');
         }
     };
 
     return (
-        /*
-        <form onSubmit={handleSubmit} style={styles.form}>
-            {error && <p style={styles.error}>{error}</p>}
-            <div style={styles.inputGroup}>
-                <label>Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            </div>
-            <div style={styles.inputGroup}>
-                <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </div>
-            <button type="submit" style={styles.button}>Login</button>
-        </form>
-        */
         <div className="login-container">
             <form onSubmit={handleSubmit} className="login-form">
                 {error && <p className="error-message">{error}</p>}

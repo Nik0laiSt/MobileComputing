@@ -1,7 +1,6 @@
 
 import { BryntumCalendarProps } from '@bryntum/calendar-react';
-import { Calendar } from '@bryntum/calendar';
-import { EventModel } from '@bryntum/calendar'; // Importiere EventModel, um den Typ zu definieren
+import { apiUrl, getAuth } from './services/api';
 
 
 export const calendarProps: BryntumCalendarProps = {
@@ -45,10 +44,10 @@ export const calendarProps: BryntumCalendarProps = {
     crudManager : {
         transport : {
             load : {
-                url: `http://localhost:5000/api/calendar/sessions?sessionState=reg`,
+                url: `${apiUrl}/calendar/sessions?sessionState=reg`,
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+                    Authorization: getAuth(),
                 },
             }
         },

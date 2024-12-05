@@ -1,5 +1,6 @@
 
 import { BryntumCalendarProps } from '@bryntum/calendar-react';
+import { apiUrl, getAuth } from './services/api';
 
 const eventProps: BryntumCalendarProps = {
     date : new Date(),
@@ -13,10 +14,10 @@ const eventProps: BryntumCalendarProps = {
     crudManager : {
         transport : {
             load : {
-                url: `http://localhost:5000/api/calendar/sessions?sessionState=unreg`,
+                url: `${apiUrl}/calendar/sessions?sessionState=unreg`,
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+                    Authorization: getAuth(),
                 },
             }
         },
