@@ -41,6 +41,7 @@ const CalendarPage: React.FC = () => {
             </div>
             <main style={styles.mainContent}>
                 <BryntumCalendar
+                mode='year'
                 ref = {calendar}
                 {...calendarProps}
                 onEventClick={({ eventRecord }) => handleEventClick(eventRecord)} // API-Aufruf ausführen
