@@ -4,6 +4,6 @@ services:
   react-backend:
     build:
       context: .  # Der Pfad zu deinem lokalen Verzeichnis, in dem das Dockerfile liegt
-      dockerfile:     THW_App/backend/dockerfile  # Der Name des Dockerfiles (optional, wenn es "Dockerfile" heißt)
+      dockerfile: /root/MobileComputing/THW_App/backend/dockerfile  # Der Name des Dockerfiles (optional, wenn es "Dockerfile" heißt)
     ports:
       - "5000:5000"  # Mappt den Port 3000 des Containers auf den Host
