@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
       "outDir": "./dist",  // Stellt sicher, dass die kompilierte Ausgabe in das dist-Verzeichnis geht
+      "rootDir": "./src",   // Eingabeverzeichnis
       "target": "es5",
-      "downlevelIteration": true
-    }
+      "module": "commonjs",
+      "downlevelIteration": true,
+      "esModuleInterop": true
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
   }
   

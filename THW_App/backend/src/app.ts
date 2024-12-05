@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import userRoutes from './routes/userRoutes';
 import sessionRoutes from './routes/trainingSessionRoutes';
 import trainingRoutes from './routes/trainingRoutes';
