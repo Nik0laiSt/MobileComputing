@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  react-backend:
+    build:
+      context: .  # Der Pfad zu deinem lokalen Verzeichnis, in dem das Dockerfile liegt
+      dockerfile: dockerfile  # Der Name des Dockerfiles (optional, wenn es "Dockerfile" heißt)
+    ports:
+      - "5000:5000"  # Mappt den Port 3000 des Containers auf den Host
+    environment:
+      - NODE_ENV=production  # Beispiel für Umgebungsvariablen
