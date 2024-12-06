@@ -1,0 +1,62 @@
+@import "../variables";
+
+.b-sch-event-wrap, .b-gantt-task-wrap {
+    .b-sch-label {
+        font-size      : 12px;
+        text-align     : center;
+        white-space    : nowrap;
+        color          : $event-labels-color;
+        font-weight    : $event-font-weight;
+        z-index        : 1; // Above dependency terminal hover area
+        min-width      : 1em; // To guarantee Siesta can reach it
+
+        pointer-events : all; // .b-gantt-task-wrap has pointer-events: none for some reason
+
+        // prevent text being selected during drag drop in Gantt
+        @include user-select-none();
+
+    }
+
+    &.b-sch-event-selected .b-sch-label,
+    .b-task-selected ~ .b-sch-label {
+        color : $selected-event-labels-color;
+    }
+
+    .b-sch-label-top {
+        grid-area     : top;
+        justify-self  : center;
+        margin-bottom : .2em;
+    }
+
+    .b-sch-label-bottom {
+        grid-area    : bottom;
+        justify-self : center;
+        margin-top   : .2em;
+    }
+
+    .b-sch-label-before {
+        grid-area         : before;
+        justify-self      : end;
+        margin-inline-end : $event-label-spacing;
+    }
+
+    .b-sch-label-after {
+        grid-area           : after;
+        justify-self        : start;
+        margin-inline-start : $event-label-spacing;
+    }
+}
+
+// The measuring element for labels
+.b-sch-event-wrap.b-measure-label {
+    height     : 1em;
+    position   : fixed;
+    top        : -10000px;
+    left       : -10000px; // RTL OK
+    visibility : hidden;
+
+    label {
+        padding-inline-start : $event-label-spacing;
+        grid-area            : none;
+    }
+}

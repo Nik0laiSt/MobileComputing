@@ -1,0 +1,19 @@
+@use 'sass:color';
+@import '../../../grid-sass/themes/vars/classic-light-vars';
+
+$event-color-gantt-green           : #d2ebd3;
+
+$resourceinfo-role-color           : #999;
+$event-labels-color                : #999;
+$selected-event-labels-color       : #333 !default;
+
+$dependency-terminal-valid-color   : color.adjust($green, $lightness : 10%);
+$dependency-terminal-invalid-color : color.adjust($red, $lightness : 10%);
+
+$dependency-tooltip-terminal-color : #888;
+
+@import '../../variables';
+
+$resourceinfo-icon-color           : color.scale($grid-cell-color, $lightness : 40%);
+
+$datepicker-cell-badge-color       : #000;

@@ -1,0 +1,27 @@
+@import '../../variables';
+
+.b-gridbase.b-rowresize {
+    .b-grid-row {
+        &.b-over-resize-handle,
+        &.b-over-resize-handle * ,
+        &.b-over-resize-handle *:before,
+        &.b-resize-handle {
+            cursor : row-resize !important;
+        }
+        &.b-resizing {
+            z-index : 2;
+        }
+    }
+
+    &.b-row-resizing {
+        .b-grid-row {
+            pointer-events: none;
+        }
+
+        * {
+            cursor : row-resize !important;
+        }
+    }
+
+
+}

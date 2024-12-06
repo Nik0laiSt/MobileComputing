@@ -1,0 +1,45 @@
+.b-gridbase.b-locked-rows {
+    z-index : 1;
+
+    // Scrollbar hidden when no *data* rows. (Header is counted as a row)
+    [aria-rowcount="1"] {
+        .b-virtual-scrollers {
+            flex-basis : 0;
+        }
+    }
+
+    // When empty, allow the header's box-shadow to escape the bounds so that it looks right
+    &:has(.b-widget-scroller.b-grid-empty) {
+        overflow : visible;
+
+        .b-grid-body-wrap, .b-grid-panel-body {
+            overflow : visible;
+        }
+    }
+
+    // When *not* empty, the top grid has a similar box-shadow to the header
+    &:not(.b-grid-empty) {
+        border-bottom : 1px solid $grid-cell-border-color;
+
+        &:not(.b-split) {
+            border-bottom-color : $grid-region-resize-splitter-narrow-color;
+        }
+
+        &.b-split {
+            border-bottom : 2px solid $splitter-background-color;
+        }
+    }
+
+    &:not(:has(.b-grid-row)) {
+        border-bottom-width : 0;
+    }
+
+    // We must not see the "No records to display" message.
+    &.b-grid-empty .b-widget-scroller {
+        min-height : 0;
+    }
+
+    .b-grid-row.b-last {
+        border-bottom : none;
+    }
+}

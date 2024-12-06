@@ -7,6 +7,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
+import { Navbar, Container } from 'react-bootstrap';
 
 export default function LabelBottomNavigation() {
   const [userRole, setUserRole] = useState('');
@@ -43,25 +44,29 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <BottomNavigation sx={{ width: '100%' }} value={value} onChange={handleChange}>
-      <BottomNavigationAction
-        label="Event"
-        value="event"
-        icon={<EmojiEventsIcon />}
-      />
-      <BottomNavigationAction
-        label="Calendar"
-        value="calendar"
-        icon={<CalendarMonthIcon />}
-      />
-      {userRole === 'admin' && ( 
-        <BottomNavigationAction
-          label="AddEvent"
-          value="addEvent"
-          
-          icon={<AddCircleOutlineIcon />}
-        />
-      )}
-    </BottomNavigation>
+    <Navbar variant="light" expand="lg" fixed="bottom" className="w-100" style={{ backgroundColor: '#ffffff' }}>
+      <Container fluid>
+        <BottomNavigation sx={{ width: '100%' }} value={value} onChange={handleChange}>
+          <BottomNavigationAction
+            label="Event"
+            value="event"
+            icon={<EmojiEventsIcon />}
+          />
+          <BottomNavigationAction
+            label="Calendar"
+            value="calendar"
+            icon={<CalendarMonthIcon />}
+          />
+          {userRole === 'admin' && ( 
+            <BottomNavigationAction
+              label="AddEvent"
+              value="addEvent"
+              
+              icon={<AddCircleOutlineIcon />}
+            />
+          )}
+        </BottomNavigation>
+      </Container>
+    </Navbar>
   );
 }

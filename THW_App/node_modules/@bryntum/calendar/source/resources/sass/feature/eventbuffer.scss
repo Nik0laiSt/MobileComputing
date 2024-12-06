@@ -1,0 +1,49 @@
+.b-dayview {
+    --preamble-line-color        : #ccc;
+    // Create the "T" background images for the preamble and postamble elements
+    --event-preamble-background  : linear-gradient(90deg, transparent, transparent calc(50% - 0.5px), var(--preamble-line-color) calc(50% - 0.5px), var(--preamble-line-color) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(180deg, var(--preamble-line-color) 1px, transparent 1px);
+    --event-postamble-background : linear-gradient(90deg, transparent, transparent calc(50% - 0.5px), var(--preamble-line-color) calc(50% - 0.5px), var(--preamble-line-color) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(0deg, var(--preamble-line-color) 1px, transparent 1px);
+}
+
+.b-cal-event-buffer {
+    position              : absolute;
+    width                 : 100%;
+    display               : grid;
+    grid-template-rows    : 0;
+    grid-template-columns : auto auto;
+    place-items           : center;
+    place-content         : center;
+    background-size       : 1em 100%;
+    background-repeat     : no-repeat;
+    background-position   : 50% 0%;
+    color                 : #aaa;
+    font-size             : 10px;
+    min-height            : 1.5em;
+    pointer-events        : none;
+
+    .b-travel-time-label[data-btip] {
+        pointer-events : all;
+    }
+
+    i {
+        margin-inline-end : 0.5em;
+    }
+}
+
+.b-cal-preamble {
+    bottom           : 100%;
+    background-image : var(--event-preamble-background);
+}
+
+.b-cal-postamble {
+    top              : 100%;
+    background-image : var(--event-postamble-background);
+}
+
+.b-travel-time-label {
+    background-color : $calendar-eventbuffer-background-color;
+    color            : $calendar-eventbuffer-color;
+    border           : 1px solid $calendar-eventbuffer-border-color;
+    border-radius    : .7em;
+    padding          : .1em .7em;
+}

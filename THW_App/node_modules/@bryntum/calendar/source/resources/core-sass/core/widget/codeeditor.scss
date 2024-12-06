@@ -1,0 +1,34 @@
+@import '../../variables';
+
+.b-codeeditor [data-ref="status"] {
+    i.b-icon {
+        margin-inline-end:.5em;
+    }
+}
+
+.b-panel .b-bryntumcodeeditor-body-wrap {
+    background : $codeeditor-background-color;
+
+    .monaco-editor .scroll-decoration {
+        box-shadow : none;
+    }
+}
+
+.b-codeeditor-content {
+    // Padding done by Monaco editor padding option
+    padding : 0;
+
+    .line-numbers:not(.active-line-number) {
+        opacity : .3;
+    }
+
+    .folded-background,
+    .monaco-editor .view-overlays .current-line {
+        background : transparent !important;
+        border     : 0 !important;
+    }
+
+    .monaco-editor .lines-content .core-guide-indent {
+        opacity : .4;
+    }
+}

@@ -1,0 +1,15 @@
+@import '../variables';
+
+.b-daybuttons {
+    .b-button.b-pressed {
+        box-shadow : none;
+
+        &.b-raised {
+            background-image : none;
+        }
+    }
+
+    .b-button.b-raised {
+        border : $widget-border-width solid rgb(var(--widget-primary-color-rgb));
+    }
+}

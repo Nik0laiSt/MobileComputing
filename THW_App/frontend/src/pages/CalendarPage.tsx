@@ -64,11 +64,12 @@ const styles = {
         flex: 1,
         //display: 'flex',
         //flexDirection: 'column' as const,
+        paddingTop: '56px',
         justifyContent: 'center',
         alignItems: 'center',
         padding: '0px',
         width: '100%',           // Auch hier die Breite auf 100% setzen
-        height: '100%'
+        height: '80%'
        // boxSizing: 'border-box',  // Für besseren Padding/Border-Handling
     },
     footer: {

@@ -1,0 +1,19 @@
+.b-daterangepicker {
+    .b-start-date,
+    .b-end-date {
+        width : 13em;
+    }
+
+    // Make sizes match the fields in the daterangefield
+    &.b-daterangefield-picker {
+        .b-end-date {
+            width : 11em;
+        }
+    }
+
+    &.b-picking-start-date .b-range-end:not(.b-range-start),
+    &:not(.b-picking-start-date) .b-range-start:not(.b-range-end) {
+        --datepicker-selected-cell-background-color :
+                #{mix($panel-background-color, $datepicker-selected-cell-background-color, 70%)};
+    }
+}

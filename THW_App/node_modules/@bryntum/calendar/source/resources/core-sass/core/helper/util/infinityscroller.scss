@@ -1,0 +1,22 @@
+
+.b-scroll-hidden {
+    @extend .b-hide-offscreen;
+
+    // overcome inline-style for virtual positioning since it could bring the element back into view
+    transform : translate(0, 0) !important;
+}
+
+.b-infinity-scroller {
+    overflow : scroll;
+
+    // we cannot use this because it greatly interferes with positioning items outside the scroll range
+    //scroll-snap-type : x mandatory;
+
+    &.b-infinity-scroller-smooth {
+        scroll-behavior: smooth;
+    }
+}
+
+.b-infinity-scroller-item {
+    position : absolute !important;
+}

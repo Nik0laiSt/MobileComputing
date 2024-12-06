@@ -1,0 +1,18 @@
+@use 'sass:color';
+
+.b-columndragtoolbar {
+    .b-target-button {
+        text-transform: uppercase;
+        width          : 7.5em;
+
+        &[data-button-id^=multisort] {
+            &.b-hover:not([data-disabled=true]) {
+                background-color : color.scale($columndragtoolbar-default-color, $lightness: 5%);
+
+                i {
+                    color : #fff;
+                }
+            }
+        }
+    }
+}

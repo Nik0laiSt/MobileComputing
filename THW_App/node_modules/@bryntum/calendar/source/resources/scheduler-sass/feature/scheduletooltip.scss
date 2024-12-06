@@ -1,0 +1,16 @@
+.b-sch-scheduletip {
+    // Ensure it doesn't change size as the content changes
+    min-width     : 10em;
+
+    &.b-panel {
+        .b-panel-content {
+            padding-block : 0.3em;
+            margin-block  : .5em;
+        }
+    }
+
+    &.b-nonworking-time {
+        opacity        : 0;
+        pointer-events : none;
+    }
+}

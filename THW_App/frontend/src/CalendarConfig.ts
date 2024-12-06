@@ -13,7 +13,6 @@ export const calendarProps: BryntumCalendarProps = {
     scheduleMenuFeature: false, // Deaktiviert das Kontextmenü für leere Bereiche
     eventTooltipFeature: false, // Deaktiviert die Eventübersicht beim Klick
 
-
     /*{
         eventTooltipFeature: {
             template: ({ eventRecord }: { eventRecord: EventModel }) => `

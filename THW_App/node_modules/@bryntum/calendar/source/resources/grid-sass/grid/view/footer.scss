@@ -1,0 +1,55 @@
+@import '../../variables';
+
+.b-grid-footer-container {
+    background-color : $grid-footer-background-color;
+    color            : $grid-cell-color;
+    // use outline to overlap last rows bottom border for nicer look
+    outline          : $grid-footer-outline-width solid $grid-footer-outline-color;
+    z-index          : 2;
+    box-shadow       : $grid-footer-box-shadow;
+
+    &.b-hidden {
+        display : none;
+    }
+}
+
+.b-grid-footers {
+    display             : inline-flex;
+    align-items         : stretch;
+    height              : 100%;
+    white-space         : nowrap;
+    // In case page uses its own line-height, it would break our rendering potentially
+    line-height         : initial;
+    // Prevent bounce scrolling in Safari
+    overscroll-behavior : none;
+}
+
+.b-grid-footer {
+    display           : flex;
+    border-inline-end : 1px solid $grid-footer-border-color;
+    flex-shrink       : 0;
+    align-items       : stretch;
+    padding           : .5em;
+
+    .b-no-column-lines & {
+        border-inline-end : none;
+    }
+}
+
+.b-grid-footer:last-child {
+    border-inline-end-color : transparent;
+}
+
+.b-grid-footer-align-start,
+.b-grid-footer-align-left {
+    text-align : start;
+}
+
+.b-grid-footer-align-center {
+    text-align : center;
+}
+
+.b-grid-footer-align-end,
+.b-grid-footer-align-right {
+    text-align : end;
+}

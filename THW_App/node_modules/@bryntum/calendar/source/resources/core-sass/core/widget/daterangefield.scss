@@ -1,0 +1,32 @@
+.b-daterangefield {
+    width : unset;  // remove value from .b-textfield styling
+
+    > .b-field-container-wrap > .b-fieldcontainer {
+        min-width : 24.5em;  // 13em + 0.5em + 11em
+
+        > .b-widget:not(:first-child) {
+            margin-inline-start: 0.5em;
+        }
+    }
+
+    &.b-pick-time {
+        > .b-field-container-wrap > .b-fieldcontainer {
+            min-width : 39.5em;  // 13em + 0.5em + 7em + 0.5em + 11em + 0.5em + 7em
+        }
+    }
+
+    .b-start-date {
+        flex  : 7 0 auto;
+        width : 13em;  // end-date + 2em (for expand trigger)
+    }
+
+    .b-end-date {
+        flex  : 5 0 auto;
+        width : 11em;
+    }
+
+    .b-end-time,
+    .b-start-time {
+        flex : 7 7 auto;
+    }
+}

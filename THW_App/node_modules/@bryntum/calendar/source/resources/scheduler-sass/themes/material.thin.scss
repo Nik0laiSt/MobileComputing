@@ -1,0 +1,23 @@
+@import 'vars/material-vars';
+@import '../all';
+
+.b-recurrenceeditor .b-recurrenceeditorpanel-body-wrap .b-recurrenceeditorpanel-content.b-panel-content {
+    > div.b-widget.b-field:not(.b-label-with-checkbox + .b-field), .b-button-group-label, .b-buttongroup {
+        &:not(.b-buttongroup) {
+            display : inline-flex;
+        }
+        &:not(.b-label-with-checkbox):not(.b-recurrencedayscombo) {
+            grid-column : 1 / -1;
+            width       : auto;
+        }
+    }
+
+    .b-button-group-label {
+        margin-block-start : .5em;
+    }
+
+    .b-buttongroup {
+        margin-block-start : 0;
+    }
+}
+

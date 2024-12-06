@@ -1,0 +1,29 @@
+.b-dayresourceview-column {
+    display   : flex;
+    flex      : 1 0 var(--min-day-width, auto);
+    height    : var(--day-height);
+    position  : relative;
+
+    // These cells are resource subcolumns. They must obey the minResourceWidth
+    .b-calendar-cell {
+        min-width : var(--min-resource-width);
+
+        // Don't show current time blob in resource subcolumns
+        &:not(:first-child) {
+            &::after {
+                display : none
+            }
+        }
+    }
+
+    &:not(.b-last-cell),
+    .b-dayresource-allday {
+        border-inline-end : $monthview-cell-border-width solid $dayresourcecalendarrow-border-color;
+    }
+}
+
+.b-day-column-header-cell {
+    &:not(:last-of-type) {
+        border-inline-end  : 1px solid $dayresourcecalendarrow-border-color;
+    }
+}

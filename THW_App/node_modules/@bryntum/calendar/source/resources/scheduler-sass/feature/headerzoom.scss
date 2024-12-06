@@ -1,0 +1,14 @@
+@use 'sass:color';
+@import '../variables';
+
+.b-header-drag-selection-rect {
+  position         : absolute;
+  left             : 0;
+  top              : 0;
+  height           : 100%;
+  transform-origin : 0 0;
+  pointer-events   : none;
+  z-index          : 100;
+
+  background       : color.scale($range-header-background-color, $alpha: -70%);
+}

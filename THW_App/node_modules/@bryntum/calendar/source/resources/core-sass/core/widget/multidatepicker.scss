@@ -1,0 +1,97 @@
+@use 'sass:color';
+
+.b-multidatepicker-nav-button {
+    @extend .b-datepicker-nav-button;
+
+    top : 0.25em;
+    transition : opacity .2s ease;
+
+    .b-panel-has-header.b-header-dock-top > & {
+        top : 4.5em;
+    }
+
+    .b-multidatepicker:not(.b-multidatepicker-nav-buttons) > & {
+        display : none;
+    }
+}
+
+.b-multidatepicker-next-button {
+    right : 0.3em;
+}
+
+.b-multidatepicker-prev-button {
+    left : 0.3em;
+}
+
+.b-multidatepicker-nav-floating {
+    overflow : visible;
+
+    // add .b-button for extra specificity to defeat icon button :hover styling
+    > .b-button.b-multidatepicker-nav-button {
+        top : 50%;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
+        background-color: $panel-background-color;
+        padding: 1.4em;
+
+        &:focus,
+        &:hover {
+            background-color: color.scale($panel-background-color, $lightness: 10%);
+            opacity: unset;  // override datepicker styling
+        }
+    }
+
+    > .b-multidatepicker-next-button {
+        right     : 0;
+        translate : 50% -50%;
+    }
+
+    > .b-multidatepicker-prev-button {
+        left      : 0;
+        translate : -50% -50%;
+    }
+}
+
+.b-multidatepicker-content > .b-carousel-inner-ct {
+    .b-datepicker-content {
+        .b-calendar-week,
+        .b-calendar-weekdays {
+            padding-inline : 1.5em;
+        }
+
+        .b-weeks-container {
+            padding-block : 0.4em;
+        }
+    }
+
+    .b-other-month {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    [data-ref="nextMonth"],
+    [data-ref="prevMonth"],
+    [data-ref="prevYear"],
+    [data-ref="nextYear"] {
+        display : none;
+    }
+
+    .b-datepicker.b-carousel-visible.b-carousel-first > .b-top-focus-trap,
+    .b-datepicker.b-carousel-visible.b-carousel-last > .b-end-focus-trap {
+        display: none;
+    }
+
+    .b-datepicker.b-carousel-reserve {
+        // prevents focusing these fellows via tab key (in case inert is unsupported)
+        [data-ref="monthField"] {
+            pointer-events: none;
+        }
+
+        [data-ref="yearButton"] {
+            display: none;
+        }
+    }
+
+    .b-datepicker .b-calendar-cell > .b-datepicker-cell-inner {
+        cursor : pointer;
+    }
+}

@@ -1,0 +1,20 @@
+.b-sch-timeaxis-menu-daterange-popup {
+    width            : 21em;
+    background-color : $menu-background-color;
+
+    .b-panel-body-wrap {
+        background-color : transparent;
+    }
+
+    .b-left-nav-btn,
+    .b-right-nav-btn {
+        // Keep nav buttons square
+        max-width : 2.5em;
+    }
+}
+
+.b-eventfilter-menu {
+    .b-panel-content {
+        padding : .25em 0;
+    }
+}

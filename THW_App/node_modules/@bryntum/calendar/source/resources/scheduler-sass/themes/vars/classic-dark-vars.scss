@@ -1,0 +1,42 @@
+@use 'sass:color';
+@import '../../../grid-sass/themes/vars/classic-dark-vars';
+
+$event-color-red                   : #D32F2F;
+$event-color-pink                  : #E91E63;
+$event-color-purple                : #8E24AA;
+$event-color-violet                : #673AB7;
+$event-color-indigo                : #475bcc;
+$event-color-blue                  : #1E88E5;
+$event-color-cyan                  : #00ACC1;
+$event-color-teal                  : #00897B;
+$event-color-green                 : #7CB342;
+$event-color-lime                  : #C0CA33;
+$event-color-yellow                : #FBC02D;
+$event-color-orange                : #FB8C00;
+$event-color-gantt-green           : #a5d8a7;
+
+$datepicker-1-to-3-events-color    : #9b8302;
+$datepicker-4-to-6-events-color    : #E6510099;
+$datepicker-7-or-more-events-color : #B71C1C99;
+
+$event-hollow-l-factor             : 0;
+
+$range-header-background-color     : color.adjust($event-color-blue, $lightness : -30%);
+$range-header-color                : color.scale(#fff, $alpha : -30%);
+$range-background-color            : rgba(56, 57, 58, .5);
+$resourceinfo-role-color           : $light-gray;
+$event-labels-color                : $grid-cell-color;
+$selected-event-labels-color       : #f7f7f7;
+$dependency-color                  : #888;
+$time-selection-background-color   : color.scale($event-color-blue, $lightness : -50%, $alpha : -80%);
+
+$columnlines-tick-color            : color.scale($grid-cell-border-color, $lightness : 7%);
+
+$weekend-background-color          : color.scale(#7b1818, $alpha : -70%);
+
+$datepicker-cell-bullet-color      : $deep-orange;
+
+$scrollbutton-color                : #999 !default;
+$scrollbutton-hover-color          : color.adjust($scrollbutton-color, $lightness : 25%) !default;
+
+$eventdragselect-border            : 1px dashed #6ca2fe !default;

@@ -1,0 +1,12 @@
+@use 'sass:color';
+@import 'vars/classic-dark-vars';
+@import '../all';
+
+// Theme specific styling
+.b-grid-cell a {
+    color : color.scale($blue, $lightness: 25%);
+
+    &:visited {
+        color : color.scale($blue, $lightness: 20%);
+    }
+}

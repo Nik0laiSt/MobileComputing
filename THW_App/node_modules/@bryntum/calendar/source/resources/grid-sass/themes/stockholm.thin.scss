@@ -1,0 +1,10 @@
+@import 'vars/stockholm-vars';
+@import '../all';
+
+.b-icon-sort-asc:before {
+    content: "#{ $fa-var-arrow-up }";
+}
+
+.b-icon-sort-desc:before {
+    content: "#{ $fa-var-arrow-down }";
+}

@@ -1,0 +1,16 @@
+@use 'sass:color';
+@import '../../../core-sass/themes/vars/classic-light-vars';
+
+$grid-row-odd-color                : #FAFAFA;
+$grid-cell-color                   : #222;
+$grid-cell-action-column-color     : $dark-gray;
+$grid-cell-border-color            : color.adjust($gray, $lightness: 5%);
+$grid-header-text-color            : #565656;
+$grid-row-placeholder-color        : color.adjust($grid-cell-border-color, $lightness: 12%);
+//$tree-parent-color : #565656;
+
+$quickfind-font-weight             : 300;
+
+@import '../../variables';
+
+$action-item-color                 : color.scale($grid-cell-color, $lightness : 60%);

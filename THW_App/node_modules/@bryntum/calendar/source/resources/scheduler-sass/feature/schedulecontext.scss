@@ -1,0 +1,17 @@
+.b-schedule-selected-tick {
+    position         : absolute;
+    background-color : $grid-focus-row-selected-background-color;
+    display          : flex;
+    justify-content  : center;
+    align-items      : center;
+    overflow         : hidden;
+
+    // Surface any contained widgets
+    &.b-widget, .b-contains-widget {
+        z-index : 7;
+    }
+
+    &:not(.b-widget, .b-contains-widget) {
+        pointer-events : none;
+    }
+}

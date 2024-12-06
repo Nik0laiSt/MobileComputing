@@ -1,0 +1,74 @@
+@use 'sass:color';
+@import '../variables';
+
+.b-schedulerbase.b-animating {
+    .b-grid-row {
+        transition : height 0.2s, transform 0.2s;
+    }
+}
+
+.b-grid-footer-container .b-sch-timeaxiscolumn {
+    padding : 0;
+}
+
+.b-sch-timeaxis-cell {
+    padding           : 0;
+    flex              : none !important;
+    align-items       : baseline;
+    border-inline-end : none;
+}
+
+// Override grid highlighting scheduler row
+.b-gridbase .b-timeline-subgrid .b-grid-row.b-selected {
+    &:not(.b-group-row) {
+        background-color : transparent;
+    }
+
+    .b-grid-cell.b-sch-timeaxis-cell.b-selected {
+        background-color : transparent;
+    }
+}
+
+// Override striping highlighting scheduler row
+.b-stripe .b-timeline-subgrid,
+.b-gridbase.b-stripe .b-timeline-subgrid {
+    .b-grid-row.b-selected.b-odd,
+    .b-grid-row.b-odd {
+        background-color : color.scale($grid-row-odd-color, $alpha: -20%);
+    }
+
+    .b-grid-row.b-selected.b-even,
+    .b-grid-row.b-even {
+        background-color : color.scale($grid-row-even-color, $alpha: -20%);
+    }
+}
+
+.b-stripe .b-timeline-subgrid .b-grid-row.b-selected {
+    .b-grid-cell.b-selected {
+        background-color : transparent;
+    }
+}
+
+.b-stripe .b-timeline-subgrid .b-grid-row.b-selected {
+    .b-grid-cell.b-selected {
+        background-color : transparent;
+    }
+}
+
+.b-timeline-subgrid {
+    @include user-select-none();
+
+    // Row lines should paint below column lines, and above non-working time shading
+    .b-grid-row {
+        z-index : $timeaxis-grid-row-zindex;
+
+        // Group rows above time ranges and column lines
+        &.b-group-row {
+            &,
+            &.b-selected {
+                z-index          : $timeaxis-group-row-zindex;
+                background-color : color.scale($grid-group-header-background-color, $alpha: -20%);
+            }
+        }
+    }
+}

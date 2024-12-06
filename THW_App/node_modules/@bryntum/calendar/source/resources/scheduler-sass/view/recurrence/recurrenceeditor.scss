@@ -1,0 +1,109 @@
+@import '../../variables';
+
+.b-recurrenceeditor {
+    .b-panel {
+        --panel-background-color : inherit;
+    }
+
+    .b-recurrenceeditorpanel-content.b-panel-content {
+        padding               : 0;
+        column-gap            : 1em;
+        display               : grid;
+        grid-template-columns : auto 1fr 1fr; // TODO: Use $recurrenceeditor-label-width?
+        justify-content       : normal;
+
+        > .b-field:not(.b-no-span):not(.b-label-with-checkbox):not(.b-buttongroup) {
+            display : contents;
+
+            &:not(.b-no-inner-span) .b-field-inner {
+                grid-column : span 2;
+            }
+        }
+
+        > .b-field[data-ref="emptyMonthsHiddenField"] {
+            .b-field-inner {
+                border-width : 0;
+            }
+        }
+
+        .b-recurrencedayscombo, .b-recurrencepositionscombo{
+            width : auto;
+        }
+
+        .b-buttongroup {
+            gap         : .5em;
+            grid-column : span 2;
+
+            &.b-recurrencedaysbuttongroup .b-button{
+                flex           : 1 1 100%;
+                min-width      : auto;
+                padding-inline : 0;
+            }
+
+            &.b-recurrencemonthsbuttongroup {
+                display               : grid;
+                grid-template-columns : repeat(4, 1fr);
+            }
+
+            &.b-recurrencemonthdaysbuttongroup {
+                display               : grid;
+                grid-template-columns : repeat(7, 1fr);
+
+                .b-button {
+                    min-height   : 2em;
+                    min-width    : 0;
+                    padding      : 0;
+                }
+            }
+        }
+
+        .b-space-above {
+            margin-block-start : 1.5em;
+        }
+
+        .b-space-below {
+            margin-block-end : 1.5em;
+        }
+
+        .b-button-group-label {
+            margin-inline-end : 1em;
+        }
+
+        .b-checkbox.b-label-with-checkbox {
+            .b-field-inner{
+                justify-content : flex-end;
+            }
+            .b-label {
+                flex : 1 1 100%;
+            }
+        }
+
+        .b-combo-picker {
+            .b-recurrencepositions-split {
+                border-top-style : solid;
+                border-top-color : $grid-cell-color;
+            }
+
+        }
+    }
+
+    .b-bottom-toolbar {
+        .b-label-filler {
+            @if $recurrenceeditor-label-filler-width == null {
+                display : none;
+            }
+            width : $recurrenceeditor-label-filler-width;
+        }
+
+        button {
+            flex : 1;
+        }
+    }
+}
+
+
+.b-schedulerpro-taskeditor .b-recurrenceeditor {
+    .b-buttongroup {
+        font-size : .8em;
+    }
+}

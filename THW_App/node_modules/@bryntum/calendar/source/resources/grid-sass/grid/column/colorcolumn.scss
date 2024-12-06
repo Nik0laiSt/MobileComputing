@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.b-grid-cell.b-color-cell {
+    .b-color-cell-inner {
+        border        : none;
+        border-radius : .4em;
+        cursor        : pointer;
+        height        : 1.5em;
+        width         : 1.5em;
+
+        &.b-empty {
+            border : 1px solid $grid-cell-border-color;
+        }
+    }
+}

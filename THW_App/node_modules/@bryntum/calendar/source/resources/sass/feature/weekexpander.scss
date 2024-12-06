@@ -1,0 +1,52 @@
+// None of these styles take effect unless the weekexpander feature is present and enabled.
+.b-weekexpander {
+    .b-has-overflow, .b-shrinkwrapped {
+        .b-week-number-cell {
+            position : relative;
+
+            .b-week-toggle-tool-wrap {
+                order           : 9999;
+                display         : flex;
+                flex-flow       : column nowrap;
+                align-items     : center;
+                padding-bottom  : 4px;
+
+                .b-week-toggle-tool {
+                    height          : 1.5em;
+                    width           : 1.5em;
+                    display         : flex;
+                    justify-content : center;
+                    align-items     : center;
+
+                    // Easier to tap on touch devices where missing the icon
+                    // would unexpectedly switch to WeekView.
+                    @media (pointer:coarse) {
+                        font-size  : 1.5em;
+                        align-self : stretch;
+                    }
+
+                    &:hover {
+                        border-radius    : 50%;
+                        background-color : $monthview-weekrow-toggle-tool-hover-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .b-has-overflow {
+        .b-week-toggle-tool {
+            &:before {
+                content : "\f107";
+            }
+        }
+    }
+
+    .b-shrinkwrapped.b-expanded {
+        .b-week-toggle-tool {
+            &:before {
+                content : "\f106";
+            }
+        }
+    }
+}

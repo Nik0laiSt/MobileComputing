@@ -1,0 +1,29 @@
+@import '../../variables';
+
+.b-timepicker {
+    max-height : 535px;
+
+    .b-list {
+        background-color : transparent;
+        display          : flex;
+        flex-direction   : column;
+        align-items      : center;
+        flex             : 1 1 auto;
+        scroll-snap-type : block;
+    }
+
+    .b-timepicker-item {
+        padding           : 0.7em;
+        aspect-ratio      : 1;
+        flex-shrink       : 0;
+        width             : 3em;
+        scroll-snap-align : start;
+        display           : grid;
+        place-content     : center;
+
+        &[aria-selected="true"] {
+            outline        : 1px solid $main-color;
+            outline-offset : -1px;
+        }
+    }
+}

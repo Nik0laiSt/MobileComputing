@@ -1,0 +1,10 @@
+
+.b-confirmationbar {
+    .b-toolbar-content {
+        justify-content : flex-end;
+
+        .b-button:not(:first-child) {
+            margin-inline-start : 1em;
+        }
+    }
+}
