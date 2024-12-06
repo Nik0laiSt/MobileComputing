@@ -3,6 +3,7 @@ import { Training } from '../models/Training';
 
 export const getTrainingById = async (id: number): Promise<Training | null> => {
     const [rows] = await db.query('SELECT * FROM trainings WHERE id = ?', [id]);
+    console.log(rows);
     if (Array.isArray(rows) && rows.length > 0) {
         return rows[0] as Training; 
     }
@@ -32,6 +33,14 @@ export const getTrainingsForGroup = async (groupId: number): Promise<Training[] 
     const query = `SELECT * FROM trainings WHERE group_id = ?`;
     const [rows] = await db.execute(query, [groupId]);
     
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as Training[]; 
+    }
+    return null;
+};
+
+export const getTrainingsForCertification = async (certificationId: number): Promise<Training[] | null> => {
+    const [rows] = await db.query('SELECT * FROM trainings WHERE certification_id = ?', [certificationId]);
     if (Array.isArray(rows) && rows.length > 0) {
         return rows as Training[]; 
     }

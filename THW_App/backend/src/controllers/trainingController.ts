@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import { getTrainingById as getByIdService, getTrainingsForGroup } from '../services/trainingService';
-import { getTrainingByName as getByNameService } from '../services/trainingService';
 import { getTrainingByTitle as getByTitleService } from '../services/trainingService';
 import { createTraining as createTrainingService} from '../services/trainingService';
 import { createTrainingSession as createSessionService} from '../services/trainingSessionService';
 import { updateTraining as updateService} from '../services/trainingService';
 import { deleteTraining as deleteService} from '../services/trainingService';
-import { getGroupByName, getGroupsForUser } from '../services/groupService';
+import { getGroupsForUser } from '../services/groupService';
 import { getUserById } from '../services/userService';
 import { Training } from '../models/Training';
 

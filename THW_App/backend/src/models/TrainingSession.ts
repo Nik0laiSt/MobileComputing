@@ -1,7 +1,7 @@
 // Schulungstermin
 export interface TrainingSession {
     id: number;
-    trainingsId: number;
+    training_id: number;
     startDate: Date;
     endDate: Date;
     location: string;
