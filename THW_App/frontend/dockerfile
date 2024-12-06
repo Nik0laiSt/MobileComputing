@@ -7,8 +7,12 @@ WORKDIR /app
 # Kopiere package.json und package-lock.json (falls vorhanden)
 COPY package*.json ./
 
-# Installiere die Abhängigkeiten
-RUN npm install
+# Setze das npm-Token aus einer Build-Argumenten oder Umgebungsvariablen
+ARG BRYNTUM_TOKEN
+ENV BRYNTUM_TOKEN=${BRYNTUM_TOKEN}
+
+# Führe npm login aus, um das Token zu verwenden
+RUN echo "//npm.bryntum.com/:_authToken=${BRYNTUM_TOKEN}" > ~/.npmrc && npm install
 
 # Kopiere den Rest der Anwendung ins Arbeitsverzeichnis
 COPY . .
