@@ -2,10 +2,8 @@ import React from 'react';
 import Header from '../components/AppBar_Search';
 import Footer from '../components/NavigationBar';
 import { Container, Row, Col } from 'react-bootstrap';
-import EventDisplay, { EventProps } from '../components/EventDisplay';
-import dummyData from '../../src/dummyData.json';
+import EventDisplay from '../components/EventDisplay';
 import Typography from '@mui/material/Typography';
-import Loader from '../components/Loader';
 
 // EventData Interface mit präzisem Typ
 interface EventData {
@@ -19,8 +17,8 @@ interface EventData {
 }
 
 const EventDisplayPage: React.FC = () => {
-    const [eventInfo, setEventInfo] = React.useState<EventData | null>(null);
-
+    //const [eventInfo, setEventInfo] = React.useState<EventData | null>(null);
+/*
     React.useEffect(() => {
         // **Daten aus den Dummy-Daten extrahieren und umwandeln**
         const transformedData: EventData = {
@@ -40,7 +38,7 @@ const EventDisplayPage: React.FC = () => {
 
         setEventInfo(transformedData); // State mit korrekt formatierten Daten setzen
     }, []);
-
+*/
     return (
         <div style={styles.pageContainer}>
             <Header />
@@ -48,11 +46,7 @@ const EventDisplayPage: React.FC = () => {
             <Container fluid className="m-0 p-0" style={styles.mainContent}>
               <Row className="justify-content-center" style={{ width: '100%' }}>
                     <Col xs={12} style={{ padding: 0 }}>
-                        {eventInfo ? (
-                            <EventDisplay {...eventInfo} />
-                        ) : (
-                            <Loader />
-                        )}
+                        <EventDisplay/>
                     </Col>
                 </Row>
             </Container>
