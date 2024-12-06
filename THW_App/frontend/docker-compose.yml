@@ -1,0 +1,25 @@
+services:
+  backend:
+    container_name: frontend  # Name des Adminer-Containers
+    build:
+      context: /opt/docker/mc/THW_App/frontend  # Pfad zum Dockerfile
+    ports:
+      - "5173:5173"  # Host-Port 5000 wird an Container-Port 5000 gebunden
+    environment:
+      - NODE_ENV=production  # Optional: Setzt die Umgebungsvariable für die App
+      - BRYNTUM_TOKEN=${BRYNTUM_TOKEN}
+    volumes:
+      - /opt/docker/mc/THW_App/frontend:/app  # Optional: Bindet das lokale Verzeichnis in den Container ein
+    working_dir: /app  # Setzt das Arbeitsverzeichnis im Container
+    networks:
+      backend:
+        ipv4_address: 172.20.1.5
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  backend:
+    external: true  # Verwendung des bestehenden Netzwerks "backend"
+    name: backend   # Der Name des bestehenden Netzwerks
