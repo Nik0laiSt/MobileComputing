@@ -20,7 +20,7 @@ expect "Password:"
 send "$password\r"
 
 # Gebe die E-Mail-Adresse ein
-expect "Email address"
+expect "Email:"
 send "$email\r"
 
 # Warten bis der Prozess endet
