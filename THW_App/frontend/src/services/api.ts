@@ -14,6 +14,14 @@ export const getAuth = (): string => {
 }
 
 
+const checkToken = setInterval(() => {
+  const tokenFromStorage = localStorage.getItem('jwtToken');
+  if (tokenFromStorage) {
+    setToken(tokenFromStorage);
+    clearInterval(checkToken); // Wenn Token gefunden, stoppe das Polling
+  }
+}, 100); // alle 100ms den localStorage prüfen
+
 const api = axios.create({
   baseURL: apiUrl,
   headers: {
