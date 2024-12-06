@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const LoginPage: React.FC = () => {
+    
     const navigate = useNavigate();
 
     const handleLoginSuccess = () => {
+
         navigate('/calendar'); // Erfolgreiches Login leitet zur Kalender-Seite weiter
+        window.location.reload();
     };
 
     return (

@@ -18,8 +18,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         try {
             const response = await api.post('/users/login', { email, password }); 
             if (response.data) {
-                setAuthToken(response.data.token);
-                onLoginSuccess(); // Erfolgreiche Login-Aktion
+                try{
+                    await setAuthToken(response.data.token);
+                    onLoginSuccess(); // Erfolgreiche Login-Aktion
+                }catch (error) {
+                    console.error('Fehler beim Speichern des Tokens:', error);
+                }
             }
         } catch (err: any) {
             setError(err.response?.data?.message || 'Login failed. Please try again.');
