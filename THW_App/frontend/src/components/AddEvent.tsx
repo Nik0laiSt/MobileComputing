@@ -189,7 +189,7 @@ const AddEvent: React.FC = () => {
 
                     <FormControl fullWidth margin="normal" required>
                         <InputLabel htmlFor="description">Description</InputLabel>
-                        <TextField
+                        <Input
                             id="description"
                             multiline
                             rows={4}
