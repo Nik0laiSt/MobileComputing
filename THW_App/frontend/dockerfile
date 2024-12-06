@@ -19,11 +19,11 @@ RUN chmod +x /app/bryntum_login.sh
 # Führe das Skript aus
 RUN /app/bryntum_login.sh
 
+# Installiere TypeScript
+RUN npm install
+
 # Kopiere den Rest der Anwendung ins Arbeitsverzeichnis
 COPY . .
-
-# Installiere TypeScript
-RUN npm install -g typescript
 
 # Baue das React-Projekt
 RUN npm run build
