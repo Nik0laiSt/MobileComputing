@@ -64,7 +64,7 @@ const styles = {
         flex: 1,
         //display: 'flex',
         //flexDirection: 'column' as const,
-        paddingTop: '56px',
+        paddingTop: '65px',
         justifyContent: 'center',
         alignItems: 'center',
         padding: '0px',
