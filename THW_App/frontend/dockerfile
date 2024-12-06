@@ -7,12 +7,14 @@ WORKDIR /app
 # Kopiere package.json und package-lock.json (falls vorhanden)
 COPY package*.json ./
 
-# Setze das npm-Token aus einer Build-Argumenten oder Umgebungsvariablen
-ARG BRYNTUM_TOKEN
-ENV BRYNTUM_TOKEN=${BRYNTUM_TOKEN}
+# Kopiere das expect-Skript ins Docker-Image
+COPY bryntum_login.sh .
 
-# Führe npm login aus, um das Token zu verwenden
-RUN echo "//npm.bryntum.com/:_authToken=${BRYNTUM_TOKEN}" > ~/.npmrc && npm install
+# Setze Ausführungsrechte für das Skript
+RUN chmod +x /app/bryntum_login.sh
+
+# Führe das Login-Skript aus, um den npm-Login zu automatisieren
+RUN /app/bryntum_login.sh
 
 # Kopiere den Rest der Anwendung ins Arbeitsverzeichnis
 COPY . .
