@@ -19,6 +19,7 @@ const eventProps: BryntumCalendarProps = {
                 headers: {
                     Authorization: getAuth(),
                 },
+                credentials: 'include',
             }
         },
         autoLoad : true

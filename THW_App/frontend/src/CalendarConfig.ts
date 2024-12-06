@@ -48,6 +48,7 @@ export const calendarProps: BryntumCalendarProps = {
                 headers: {
                     Authorization: getAuth(),
                 },
+                credentials: 'include',
             }
         },
         autoLoad : true
