@@ -4,9 +4,9 @@
 set timeout 20
 
 # Hole Umgebungsvariablen (NPM User, Token, E-Mail)
-set username bryntum..cmb.fambaum.com
+set username peruecke-felsiger-2i..icloud.com
 set password trial
-set email bryntum@cmb.fambaum.com
+set email peruecke-felsiger-2i@icloud.com
 
 # Starte npm login und erwarte Eingabeaufforderungen
 spawn npm login --registry=https://npm.bryntum.com
