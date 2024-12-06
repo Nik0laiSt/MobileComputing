@@ -5,3 +5,19 @@
 #root {
   //height: 100vh;
 }
+
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding-top: 56px; // Anpassen an die tatsächliche Höhe Ihres Headers
+  padding-bottom: 56px;
+}
+
+.navbar {
+  height: 56px; // Stellen Sie sicher, dass dies mit dem padding-top der .main-content übereinstimmt
+}

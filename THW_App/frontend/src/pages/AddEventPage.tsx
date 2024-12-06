@@ -8,7 +8,7 @@ const AddEventPage: React.FC = () => {
   return (
     <div style={styles.pageContainer}>
       <Header />
-      
+      <main className="main-content">
       <Container fluid className="m-0" style={styles.mainContent}>
         <Row className="justify-content-center">
           <Col>
@@ -16,7 +16,7 @@ const AddEventPage: React.FC = () => {
           </Col>
         </Row>
       </Container>
-      
+      </main>
       <Footer />
     </div>
   );
