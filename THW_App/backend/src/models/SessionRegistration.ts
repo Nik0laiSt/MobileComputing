@@ -1,8 +1,8 @@
 // Anmeldung
 export interface Registration {
     id: number;
-    sessionId: number;
-    userId: number;
+    session_id: number;
+    user_id: number;
     userName: string;
     userPrename: string;
     registrationDate: Date;

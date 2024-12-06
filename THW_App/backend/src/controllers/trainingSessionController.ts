@@ -9,6 +9,8 @@ import { TrainingSession } from '../models/TrainingSession';
 import { createRegistration} from '../services/sessionRegistrationService';
 import { updateRegistration} from '../services/sessionRegistrationService';
 import { deleteRegistration} from '../services/sessionRegistrationService';
+import { createCertificate } from './certificateController';
+import { getTrainingById } from '../services/trainingService';
 
 export const getTrainingSessionById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id, 10);
@@ -63,7 +65,7 @@ export const getAllRegisteredSessionsForUser = async (req: Request, res: Respons
       return;
     }
   for (const registration of registrations) {
-    const session = await getByIdService(registration.sessionId);
+    const session = await getByIdService(registration.session_id);
     if (session !== null) {
       sessions.push(session);
     }
@@ -99,4 +101,9 @@ export const markAsAttended = async (req: Request, res: Response) => {
     const sessionId = parseInt(req.params.sessionId, 10);
     const success = updateRegistration(sessionId, userId, true);
     res.json(success);
+
+    const session = await getByIdService(sessionId);
+    const training = await getTrainingById(session.training_id);
+
+    createCertificate(training.certification_id, userId);
 };

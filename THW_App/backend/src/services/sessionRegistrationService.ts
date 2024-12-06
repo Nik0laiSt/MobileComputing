@@ -2,7 +2,7 @@ import db from '../database/connection'; // Die Datenbankverbindung wird importi
 import { Registration } from '../models/SessionRegistration';
 
 export const getRegistrationById = async (id: number): Promise<Registration | null> => {
-    const [rows] = await db.query('SELECT * FROM training_sessions WHERE id = ?', [id]);
+    const [rows] = await db.query('SELECT * FROM session_registrations WHERE id = ?', [id]);
     if (Array.isArray(rows) && rows.length > 0) {
         return rows[0] as Registration; 
     }
@@ -10,7 +10,15 @@ export const getRegistrationById = async (id: number): Promise<Registration | nu
 };
 
 export const getAllRegistrationsForUser = async (userId: number): Promise<Registration[] | null> => {
-    const [rows] = await db.query('SELECT * FROM training_sessions WHERE user_id = ?', [userId]);
+    const [rows] = await db.query('SELECT * FROM session_registrations WHERE user_id = ?', [userId]);
+    if (Array.isArray(rows) && rows.length > 0) {
+        return rows as Registration[]; 
+    }
+    return null;
+};
+
+export const getAllAttendedRegistrationsForUser = async (userId: number): Promise<Registration[] | null> => {
+    const [rows] = await db.query('SELECT * FROM session_registrations WHERE user_id = ? AND attended = TRUE', [userId]);
     if (Array.isArray(rows) && rows.length > 0) {
         return rows as Registration[]; 
     }
@@ -18,7 +26,7 @@ export const getAllRegistrationsForUser = async (userId: number): Promise<Regist
 };
 
 export const getAllRegistrationsForTrainingSession = async (sessionId: number): Promise<Registration[] | null> => {
-    const [rows] = await db.query('SELECT * FROM training_sessions WHERE session_id = ?', [sessionId]);
+    const [rows] = await db.query('SELECT * FROM session_registrations WHERE session_id = ?', [sessionId]);
     if (Array.isArray(rows) && rows.length > 0) {
         return rows as Registration[]; 
     }
