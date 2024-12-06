@@ -1,0 +1,23 @@
+# Verwende ein Node.js-Image als Basis
+FROM node:16-alpine
+
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /app
+
+# Kopiere package.json und package-lock.json (falls vorhanden)
+COPY package*.json ./
+
+# Installiere die Abhängigkeiten
+RUN npm install
+
+# Kopiere den Rest der Anwendung ins Arbeitsverzeichnis
+COPY . .
+
+# Baue das React-Projekt
+RUN npm run build
+
+# Setze den Port, auf dem die App laufen soll
+EXPOSE 5173
+
+# Setze den Startbefehl für die Anwendung
+CMD ["npm", "start"]
