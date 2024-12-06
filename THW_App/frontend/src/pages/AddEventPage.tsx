@@ -34,10 +34,12 @@ const styles = {
 },
 mainContent: {
     flex: 1,
+    paddingTop: '56px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start', // Align content to the top
     padding: '20px',
     width: '100%',
+    height: '80%'
 }
 };

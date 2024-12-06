@@ -60,6 +60,7 @@ export default EventDisplayPage;
 
 const styles = {
   pageContainer: {
+    paddingTop: '56px',
     display: 'flex',
     flexDirection: 'column' as const,
     minHeight: '100vh',
@@ -73,6 +74,7 @@ mainContent: {
     alignItems: 'flex-start', // Align content to the top
     padding: '20px',
     width: '100%',
+    height: '80%'
 },
 card: {
     width: '100%', // Make the card occupy the full width of the container
