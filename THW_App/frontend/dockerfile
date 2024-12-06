@@ -1,23 +1,29 @@
 # Verwende ein Node.js-Image als Basis
 FROM node:16-alpine
 
+# Installiere Expect (falls noch nicht installiert)
+RUN apk add --no-cache expect
+
 # Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
 # Kopiere package.json und package-lock.json (falls vorhanden)
 COPY package*.json ./
 
-# Kopiere das expect-Skript ins Docker-Image
-COPY bryntum_login.sh .
+# Kopiere das Login-Skript ins Docker-Image
+COPY bryntum_login.sh /app/bryntum_login.sh
 
 # Setze Ausführungsrechte für das Skript
 RUN chmod +x /app/bryntum_login.sh
 
-# Führe das Login-Skript aus, um den npm-Login zu automatisieren
+# Führe das Skript aus
 RUN /app/bryntum_login.sh
 
 # Kopiere den Rest der Anwendung ins Arbeitsverzeichnis
 COPY . .
+
+# Installiere TypeScript
+RUN npm install -g typescript
 
 # Baue das React-Projekt
 RUN npm run build
